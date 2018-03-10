@@ -75,5 +75,17 @@ namespace Zoos
             this.cagedItems.Remove(cagedItem);
         }
 
+
+        public override string ToString()
+        {
+            string result = $"{AnimalType.Name} cage ({this.Width}x{this.Height})";
+
+            foreach (Animal a in CagedItems)
+            {
+                result += $"{Environment.NewLine}{a.ToString()} ({a.XPosition}x{a.YPosition})";
+            }
+            return "";
+        }
+
     }
 }

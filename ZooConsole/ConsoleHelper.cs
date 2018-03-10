@@ -114,6 +114,11 @@ namespace ZooConsole
                     ConsoleHelper.ShowGuest(zoo, uppercaseName);
 
                     break;
+                case "cage":
+                    ConsoleHelper.ShowCage(zoo, uppercaseName);
+                    
+
+                    break;
                 default:
                     Console.WriteLine("Unknown type. Only animals and guests can be shown.");
 
@@ -340,6 +345,18 @@ namespace ZooConsole
             zoo.AddGuest(guest, ticket);
 
             ConsoleHelper.ShowGuest(zoo, guest.Name);
+        }
+
+        /// <summary>
+        /// Shows the cage in the console.
+        /// </summary>
+        /// <param name="zoo">The zoo whose cage is to be shown.</param>
+        /// <param name="animalName">The animal in the cage.</param>
+        private static void ShowCage(Zoo zoo, string animalName)
+        {
+            Animal animal = zoo.FindAnimal(animalName);
+            Cage cage = zoo.FindCage(animal.GetType());
+            Console.WriteLine(cage.ToString());
         }
     }
 }

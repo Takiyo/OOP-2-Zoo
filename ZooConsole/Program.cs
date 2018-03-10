@@ -81,7 +81,7 @@ namespace ZooConsole
                             }
                             catch (IndexOutOfRangeException)
                             {
-                                Console.WriteLine("Please enter the parameters [animal or guest] [name].");
+                                Console.WriteLine("Please enter the parameters [animal, guest, or cage] [name].");
                             }
 
                             break;
