@@ -43,7 +43,7 @@ namespace Animals
                 // Checks if the distance to be moved reaches out of bounds. 
                 // If it is, restricts movement to in-bounds and the entity turns around.
                 if (this.XPosition + this.MoveDistance > this.XPositionMax)
-                {                   
+                {
                     this.XPosition = this.XPositionMax;
                     this.XDirection = HorizontalDirection.Left;
                 }

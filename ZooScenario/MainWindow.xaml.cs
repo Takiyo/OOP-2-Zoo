@@ -387,7 +387,7 @@ namespace ZooScenario
                     this.comoZoo.FindCage(animal.GetType())
                     );
                     
-                window.ShowDialog();
+                window.Show();
             }
         }
 

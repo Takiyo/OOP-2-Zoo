@@ -45,6 +45,7 @@ namespace ZooScenario
 
             this.redrawTimer = new Timer(100);
             this.redrawTimer.Elapsed += this.RedrawHandler;
+            this.redrawTimer.Start();
         }
 
         /// <summary>
