@@ -84,7 +84,7 @@ namespace Zoos
             {
                 result += $"{Environment.NewLine}{a.ToString()} ({a.XPosition}x{a.YPosition})";
             }
-            return "";
+            return result;
         }
 
     }

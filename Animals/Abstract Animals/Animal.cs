@@ -76,7 +76,7 @@ namespace Animals
 
             YDirection = (random.Next(0, 2) == 0) ? VerticalDirection.Up : VerticalDirection.Down;
 
-            this.moveTimer = new Timer(1000);
+            this.moveTimer = new Timer(250);
             this.moveTimer.Elapsed += this.MoveHandler;
             this.moveTimer.Start();
         }
