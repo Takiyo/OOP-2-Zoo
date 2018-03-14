@@ -19,12 +19,14 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Swim);
+
+            this.EatBehavior = new ConsumeBehavior();
         }
 
         /// <summary>
         /// The percentage of weight the fish gains through eating.
         /// </summary>
-        protected override double WeightGainPercentage
+        public override double WeightGainPercentage
         {
             get
             {

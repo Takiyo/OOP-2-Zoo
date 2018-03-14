@@ -19,13 +19,15 @@ namespace Animals
         public Mammal(string name, int age, double weight, Gender gender)
             : base(name, age, weight, gender)
         {
-            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Fly);
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Pace);
+
+            this.EatBehavior = new ConsumeBehavior();
         }
 
         /// <summary>
         /// Gets the percentage of weight gained for each pound of food eaten.
         /// </summary>
-        protected override double WeightGainPercentage
+        public override double WeightGainPercentage
         {
             get
             {

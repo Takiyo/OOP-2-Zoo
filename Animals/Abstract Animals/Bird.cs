@@ -20,12 +20,14 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Fly);
+
+            this.EatBehavior = new ConsumeBehavior();
         }
 
         /// <summary>
         /// Gets the percentage of weight gained for each pound of food eaten.
         /// </summary>
-        protected override double WeightGainPercentage
+        public override double WeightGainPercentage
         {
             get
             {

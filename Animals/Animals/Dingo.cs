@@ -20,6 +20,8 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.BabyWeightPercentage = 10.0;
+
+            this.EatBehavior = new BuryAndEatBoneBehavior();
         }
 
         /// <summary>

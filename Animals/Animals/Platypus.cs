@@ -22,6 +22,7 @@ namespace Animals
             this.BabyWeightPercentage = 12.0;
 
             this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Swim);
+            this.EatBehavior = new ShowAffectionBehavior();
         }
 
         /// <summary>

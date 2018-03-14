@@ -188,7 +188,13 @@ namespace People
                 // Confidential.
                 return 0.0;
             }
+            set
+            {
+                return;
+            }
         }
+
+        public double WeightGainPercentage { get { return 0; } }
 
         /// <summary>
         /// The following 4 properties get or set the position and direction of the guest while they're in the cage.

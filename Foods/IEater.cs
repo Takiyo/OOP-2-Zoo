@@ -11,7 +11,10 @@
         double Weight
         {
             get;
+            set;
         }
+
+        double WeightGainPercentage { get; }
 
         /// <summary>
         /// Eats the specified food.

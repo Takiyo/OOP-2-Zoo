@@ -227,7 +227,7 @@ namespace Animals
         /// <summary>
         /// Gets the percentage of weight gained for each pound of food eaten.
         /// </summary>
-        protected abstract double WeightGainPercentage
+        public abstract double WeightGainPercentage
         {
             get;
         }
@@ -318,6 +318,8 @@ namespace Animals
         }
 
         public IMoveBehavior MoveBehavior { get; set; }
+
+        public IEatBehavior EatBehavior { get; set; }
 
         /// <summary>
         /// Creates another reproducer of its own type.

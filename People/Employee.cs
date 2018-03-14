@@ -38,6 +38,8 @@ namespace People
             this.number = number;
         }
 
+        public double WeightGainPercentage { get { return 0; } }
+
         /// <summary>
         /// Gets the weight of the employee.
         /// </summary>
@@ -47,6 +49,10 @@ namespace People
             {
                 // Confidential.
                 return 0.0;
+            }
+            set
+            {
+                return;
             }
         }
 
