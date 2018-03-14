@@ -38,8 +38,6 @@ namespace Animals
         public override void Move()
         {
             // Hover.
-
-            // Fly.
         }
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Abstract Animals\Mammal.cs" />
     <Compile Include="Animals\Platypus.cs" />
     <Compile Include="Enumerations\AnimalType.cs" />
+    <Compile Include="MoveHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

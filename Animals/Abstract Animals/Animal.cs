@@ -52,6 +52,8 @@ namespace Animals
         /// </summary>
         private double weight;
 
+
+
         /// <summary>
         /// Initializes a new instance of the Animal class.
         /// </summary>
@@ -345,6 +347,8 @@ namespace Animals
             this.moveTimer.Start();
 #endif
         }
+
+
 
         /// <summary>
         /// Generates a string representation of the animal.

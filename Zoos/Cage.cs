@@ -75,7 +75,10 @@ namespace Zoos
             this.cagedItems.Remove(cagedItem);
         }
 
-
+        /// <summary>
+        /// Overrides the cage object's ToString the change string format.
+        /// </summary>
+        /// <returns>The formatted string.</returns>
         public override string ToString()
         {
             string result = $"{AnimalType.Name} cage ({this.Width}x{this.Height})";

@@ -37,35 +37,7 @@ namespace Animals
         /// </summary>
         public override void Move()
         {
-            // Checks if it's moving right.
-            if (this.XDirection == HorizontalDirection.Right)
-            {
-                // Checks if the distance to be moved reaches out of bounds. 
-                // If it is, restricts movement to in-bounds and the entity turns around.
-                if (this.XPosition + this.MoveDistance > this.XPositionMax)
-                {
-                    this.XPosition = this.XPositionMax;
-                    this.XDirection = HorizontalDirection.Left;
-                }
-                // If it isn't, the entity moves the set distance unhindered.
-                else
-                {
-                    this.XPosition += this.MoveDistance;
-                }
-            }
-            // Checks if it's moving left.
-            else
-            {
-                if (this.XPosition - this.MoveDistance < 0)
-                {
-                    this.XPosition = 0;
-                    this.XDirection = HorizontalDirection.Right;
-                }
-                else
-                {
-                    this.XPosition -= this.MoveDistance;
-                }
-            }
+            MoveHelper.Pace(this);
         }
 
         /// <summary>
