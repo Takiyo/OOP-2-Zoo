@@ -19,6 +19,8 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.BabyWeightPercentage = 30.0;
+
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Pace);
         }
 
         /// <summary>
@@ -31,14 +33,6 @@ namespace Animals
                 double result = (this.Age == 0) ? 0.4 : 0.8;
                 return result;
             }
-        }
-
-        /// <summary>
-        /// Moves by pacing.
-        /// </summary>
-        public override void Move()
-        {
-            MoveHelper.Pace(this);           
         }
     }
 }

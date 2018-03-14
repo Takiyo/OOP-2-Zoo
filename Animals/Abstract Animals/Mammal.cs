@@ -19,6 +19,7 @@ namespace Animals
         public Mammal(string name, int age, double weight, Gender gender)
             : base(name, age, weight, gender)
         {
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Fly);
         }
 
         /// <summary>
@@ -30,14 +31,6 @@ namespace Animals
             {
                 return 15.0;
             }
-        }
-
-        /// <summary>
-        /// Moves by pacing.
-        /// </summary>
-        public override void Move()
-        {
-            MoveHelper.Pace(this);
         }
 
         /// <summary>

@@ -18,18 +18,8 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.BabyWeightPercentage = 17.0;
-        }
 
-        /// <summary>
-        /// Moves by climbing.
-        /// </summary>
-        public override void Move()
-        {
-            // Scurry.
-
-            // Climb.
-
-            // Float.
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.NoMove);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.BabyWeightPercentage = 17.5;
+
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.NoMove);
         }
 
         /// <summary>
@@ -30,14 +32,6 @@ namespace Animals
                 double result = (this.Age == 0) ? 0.4 : 0.6;
                 return result;
             }
-        }
-
-        /// <summary>
-        /// Moves by hovering and flying.
-        /// </summary>
-        public override void Move()
-        {
-            // Hover.
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Reproducers;
+﻿
+using Reproducers;
 using Utilities;
 
 namespace Animals
@@ -18,7 +19,7 @@ namespace Animals
         public Bird(string name, int age, double weight, Gender gender)
             : base(name, age, weight, gender)
         {
-           
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Fly);
         }
 
         /// <summary>
@@ -38,14 +39,6 @@ namespace Animals
         public void Hatch()
         {
             // Break out of egg.
-        }
-
-        /// <summary>
-        /// Moves by flying.
-        /// </summary>
-        public override void Move()
-        {
-            MoveHelper.Fly(this);
         }
 
         /// <summary>

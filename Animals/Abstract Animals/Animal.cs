@@ -305,12 +305,19 @@ namespace Animals
         public void MakePregnant()
         {
             this.isPregnant = true;
+
+            this.MoveBehavior = new NoMoveBehavior();
         }
 
         /// <summary>
         /// Moves the animal.
         /// </summary>
-        public abstract void Move();
+        public void Move()
+        {
+            this.MoveBehavior.Move(this);
+        }
+
+        public IMoveBehavior MoveBehavior { get; set; }
 
         /// <summary>
         /// Creates another reproducer of its own type.

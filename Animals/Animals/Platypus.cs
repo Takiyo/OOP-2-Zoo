@@ -20,6 +20,8 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.BabyWeightPercentage = 12.0;
+
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Swim);
         }
 
         /// <summary>
@@ -51,14 +53,6 @@ namespace Animals
         public void Hatch()
         {
             // The platypus hatches from an egg.
-        }
-
-        /// <summary>
-        /// Moves by swimming.
-        /// </summary>
-        public override void Move()
-        {
-            MoveHelper.Swim(this);
         }
 
         /// <summary>

@@ -18,6 +18,7 @@ namespace Animals
         public Fish(string name, int age, double weight, Gender gender)
             : base(name, age, weight, gender)
         {
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Swim);
         }
 
         /// <summary>
@@ -29,14 +30,6 @@ namespace Animals
             {
                 return 5.0;
             }
-        }
-
-        /// <summary>
-        /// Moves by swimming.
-        /// </summary>
-        public override void Move()
-        {
-            MoveHelper.Swim(this);
         }
     }
 }

@@ -12,45 +12,6 @@ namespace Animals
     /// </summary>
     public static class MoveHelper
     {
-        private static int evenOrOdd = 2;
-
-        /// <summary>
-        /// The animal paces.
-        /// </summary>
-        public static void Pace(Animal animal)
-        {
-            MoveHorizontally(animal, animal.MoveDistance);
-        }
-
-        public static void Fly(Animal animal)
-        {
-            MoveHorizontally(animal, animal.MoveDistance);
-
-            // Simulates wing flapping. Every time the bird is drawn,
-            // the bird goes up or down 10 units.
-            if (evenOrOdd % 2 == 0)
-            {
-                MoveVertically(animal, 10);
-                evenOrOdd++;
-            }
-            else if (evenOrOdd % 2 != 0)
-            {
-                MoveVertically(animal, -10);
-                evenOrOdd++;
-            }
-            
-        }
-
-        /// <summary>
-        /// The animal swims.
-        /// </summary>
-        public static void Swim(Animal animal)
-        {
-            MoveHelper.MoveHorizontally(animal, animal.MoveDistance);
-            MoveHelper.MoveVertically(animal, animal.MoveDistance);
-        }
-
-
         public static void MoveHorizontally(Animal animal, int moveDistance)
         {
             // Checks if it's moving right.

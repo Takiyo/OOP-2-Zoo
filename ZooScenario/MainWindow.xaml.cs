@@ -323,6 +323,7 @@ namespace ZooScenario
             try
             {
                 this.animalTypeComboBox.ItemsSource = Enum.GetValues(typeof(AnimalType));
+                this.changeMoveBehaviorComboBox.ItemsSource = Enum.GetValues(typeof(MoveBehaviorType));
 
                 this.PopulateAnimalListBox();
                 this.PopulateGuestListBox();
@@ -417,6 +418,29 @@ namespace ZooScenario
             this.comoZoo.FindCage(guest.AdoptedAnimal.GetType()).Remove(guest);
             guest.AdoptedAnimal = null;
             this.PopulateGuestListBox();
+        }
+
+        /// <summary>
+        /// Changes move behavior of the animal.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+        private void changeMoveBehaviorButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MoveBehaviorType behaviortype = (MoveBehaviorType)this.changeMoveBehaviorComboBox.SelectedItem;
+                Animal animal = this.animalListBox.SelectedItem as Animal;
+                if (animal != null && behaviortype != null)
+                {
+                    IMoveBehavior newmovebehavior = MoveBehaviorFactory.CreateMoveBehavior(behaviortype);
+                    animal.MoveBehavior = newmovebehavior;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Please select a behavior type in the combo box.");
+            }
         }
     }
 }
