@@ -20,8 +20,8 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Pace);
-
             this.EatBehavior = new ConsumeBehavior();
+            this.ReproduceBehavior = new GiveBirthBehavior();
         }
 
         /// <summary>

@@ -355,8 +355,20 @@ namespace ZooConsole
         private static void ShowCage(Zoo zoo, string animalName)
         {
             Animal animal = zoo.FindAnimal(animalName);
-            Cage cage = zoo.FindCage(animal.GetType());
-            Console.WriteLine(cage.ToString());
+
+            if (animal != null)
+            {
+                Cage cage = zoo.FindCage(animal.GetType());
+
+                if (cage != null)
+                {
+                    Console.WriteLine("Cage found: " + cage.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("Animal could not be found.");
+            }
         }
     }
 }

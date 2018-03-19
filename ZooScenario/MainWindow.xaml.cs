@@ -429,17 +429,17 @@ namespace ZooScenario
         {
             try
             {
-                MoveBehaviorType behaviortype = (MoveBehaviorType)this.changeMoveBehaviorComboBox.SelectedItem;
+                object behaviorType = this.changeMoveBehaviorComboBox.SelectedItem;
                 Animal animal = this.animalListBox.SelectedItem as Animal;
-                if (animal != null && behaviortype != null)
+                if (animal != null && behaviorType != null)
                 {
-                    IMoveBehavior newmovebehavior = MoveBehaviorFactory.CreateMoveBehavior(behaviortype);
+                    IMoveBehavior newmovebehavior = MoveBehaviorFactory.CreateMoveBehavior((MoveBehaviorType)behaviorType);
                     animal.MoveBehavior = newmovebehavior;
                 }
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Please select a behavior type in the combo box.");
+                MessageBox.Show("Please select a behavior type and an animal to change its move behavior.");
             }
         }
     }

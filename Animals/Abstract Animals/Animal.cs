@@ -76,7 +76,8 @@ namespace Animals
             this.XPosition = random.Next(1, this.XPositionMax + 1);
             this.YPosition = random.Next(1, this.YPositionMax + 1);
 
-            YDirection = (random.Next(0, 2) == 0) ? VerticalDirection.Up : VerticalDirection.Down;
+            this.YDirection = Animal.random.Next(0, 2) == 0 ? VerticalDirection.Up : VerticalDirection.Down;
+            this.XDirection = Animal.random.Next(0, 2) == 0 ? HorizontalDirection.Left : HorizontalDirection.Right;
 
             this.moveTimer = new Timer(250);
             this.moveTimer.Elapsed += this.MoveHandler;
@@ -305,7 +306,6 @@ namespace Animals
         public void MakePregnant()
         {
             this.isPregnant = true;
-
             this.MoveBehavior = new NoMoveBehavior();
         }
 
@@ -317,9 +317,20 @@ namespace Animals
             this.MoveBehavior.Move(this);
         }
 
+        /// <summary>
+        /// Gets or sets the animal's move behavior.
+        /// </summary>
         public IMoveBehavior MoveBehavior { get; set; }
 
+        /// <summary>
+        /// Gets or sets the animal's eat behavior.
+        /// </summary>
         public IEatBehavior EatBehavior { get; set; }
+
+        /// <summary>
+        /// Gets or sets the animal's reproduce behavior.
+        /// </summary>
+        public IReproduceBehavior ReproduceBehavior { get; set; }
 
         /// <summary>
         /// Creates another reproducer of its own type.
