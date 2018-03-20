@@ -85,7 +85,30 @@ namespace Zoos
         /// <param name="vet">The zoo's birthing room vet.</param>
         public Zoo(string name, int capacity, int restroomCapacity, decimal animalFoodPrice, decimal ticketPrice, decimal waterBottlePrice, decimal boothMoneyBalance, Employee attendant, Employee vet)
         {
-            this.animals = new List<Animal>();
+            this.animals = new List<Animal>()
+            {
+                    new Chimpanzee("Bobo", 10, 128.2, Gender.Male),
+                    new Chimpanzee("Bubbles", 3,  103.8, Gender.Female),
+                    new Dingo("Spot", 5, 41.3, Gender.Male),
+                    new Dingo("Maggie", 6, 37.2, Gender.Female),
+                    new Dingo("Toby", 0, 15.0, Gender.Male),
+                    new Eagle("Ari", 12, 10.1, Gender.Female),
+                    new Hummingbird("Buzz", 2, 0.02, Gender.Male),
+                    new Hummingbird("Bitsy", 1, 0.03, Gender.Female),
+                    new Kangaroo("Kanga", 8, 72.0, Gender.Female),
+                    new Kangaroo("Roo", 0, 23.9, Gender.Male),
+                    new Kangaroo("Jake", 9,153.5, Gender.Male),
+                    new Ostrich("Stretch", 26, 231.7, Gender.Male),
+                    new Ostrich("Speedy", 30, 213.0, Gender.Female),
+                    new Platypus("Patti", 13, 4.4, Gender.Female),
+                    new Platypus("Bill", 11, 4.9, Gender.Male),
+                    new Platypus("Ted", 0, 1.1, Gender.Male),
+                    new Shark("Bruce", 19,  810.6, Gender.Female),
+                    new Shark("Anchor", 17, 458.0, Gender.Male),
+                    new Shark("Chum", 14, 377.3, Gender.Male),
+                    new Squirrel("Chip", 4, 1.0, Gender.Male),
+                    new Squirrel("Dale", 4, 0.9, Gender.Male)
+            };
             this.animalSnackMachine = new VendingMachine(animalFoodPrice, new Account());
             this.b168 = new BirthingRoom(vet);
             this.capacity = capacity;
@@ -430,6 +453,29 @@ namespace Zoos
             guest.VisitInformationBooth(this.informationBooth);
 
             return ticket;
+        }
+
+        /// <summary>
+        /// Sorts zoo animals.
+        /// </summary>
+        /// <param name="sortType">The type of sorting algorithm to be used.</param>
+        /// <param name="sortValue">The value to be sorted with.</param>
+        /// <returns></returns>
+        public SortResult SortAnimals(string sortType, string sortValue)
+        {
+            SortResult result = null;
+
+            switch (sortType)
+            {
+                case "bubble":
+                    if (sortValue == "weight")
+                    {
+                        SortHelper.BubbleSortByWeight(this.animals);
+                    }
+                    break;
+            }
+
+            return result;
         }
     }
 }

@@ -109,7 +109,25 @@ namespace ZooConsole
                             {
                                 Console.WriteLine("Zoo is out of tickets.");
                             }
+                            break;
+                        case "sort":
+                            try
+                            {
+                                SortResult result = zoo.SortAnimals(commandWords[1], commandWords[2]);
 
+                                Console.WriteLine($"SORT TYPE: {commandWords[1].ToUpper()}");
+                                Console.WriteLine($"SORT BY: {commandWords[2].ToUpper()}");
+                                Console.WriteLine($"SWAP COUNT: {result.SwapCount}");
+
+                                foreach (Animal a in result.Animals)
+                                {
+                                    Console.WriteLine(a.ToString());
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Sort command must be entered as: sort [sort type] [sort by -- weight or name].");
+                            }
                             break;
                         default:
                             Console.WriteLine("Invalid command entered.");
