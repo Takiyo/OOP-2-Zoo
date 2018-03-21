@@ -124,7 +124,7 @@ namespace ZooConsole
                                     Console.WriteLine(a.ToString());
                                 }
                             }
-                            catch (Exception)
+                            catch (NullReferenceException)
                             {
                                 Console.WriteLine("Sort command must be entered as: sort [sort type] [sort by -- weight or name].");
                             }
