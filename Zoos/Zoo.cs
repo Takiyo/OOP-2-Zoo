@@ -478,9 +478,24 @@ namespace Zoos
                     }
                     break;
                 case "selection":
-                    if(sortValue == "weight")
+                    if (sortValue == "weight")
                     {
                         result = SortHelper.SelectionSortByWeight(this.animals);
+                    }
+                    if (sortValue == "name")
+                    {
+                        result = SortHelper.SelectionSortByName(this.animals);
+                    }
+                    break;
+
+                case "insertion":
+                    if (sortValue == "weight")
+                    {
+                        result = SortHelper.InsertionSortByWeight(this.animals);
+                    }
+                    if (sortValue == "name")
+                    {
+                        result = SortHelper.InsertionSortByName(this.animals);
                     }
                     break;
             }

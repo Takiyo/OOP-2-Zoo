@@ -13,12 +13,22 @@ namespace Zoos
     public class SortResult
     {
         /// <summary>
-        /// Placeholder
+        /// Gets or sets the list of animals to be sorted.
         /// </summary>
         public List<Animal> Animals { get; set; }
 
         /// <summary>
-        /// Placeholder
+        /// Gets or sets the compare count of the sort results.
+        /// </summary>
+        public int CompareCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets how many milliseconds elapse during a sort.
+        /// </summary>
+        public double ElapsedMilliseconds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of times two values are swapped in an array.
         /// </summary>
         public int SwapCount { get; set; }
     }

@@ -53,7 +53,7 @@ namespace ZooConsole
                             break;
                         case "help":
                             Console.WriteLine("Known commands:");
-                            Console.WriteLine("HELP: Shows a list of known commands.");                            
+                            Console.WriteLine("HELP: Shows a list of known commands.");
                             Console.WriteLine("EXIT: Exits the application.");
                             Console.WriteLine("RESTART: Creates a new zoo.");
                             Console.WriteLine("TEMPERATURE: Sets the birthing room temperature.");
@@ -61,7 +61,7 @@ namespace ZooConsole
                             Console.WriteLine("SHOW GUEST [guest name]: Displays information for specified guest.");
                             Console.WriteLine("ADD: Adds an animal or guest to the zoo.");
                             Console.WriteLine("REMOVE: Removes an animal or guest from the zoo.");
-                            
+
                             break;
                         case "temp":
                             try
@@ -118,6 +118,8 @@ namespace ZooConsole
                                 Console.WriteLine($"SORT TYPE: {commandWords[1].ToUpper()}");
                                 Console.WriteLine($"SORT BY: {commandWords[2].ToUpper()}");
                                 Console.WriteLine($"SWAP COUNT: {result.SwapCount}");
+                                Console.WriteLine($"COMPARE COUNT: {result.CompareCount}");
+                                Console.WriteLine($"TIME: {result.ElapsedMilliseconds}");
 
                                 foreach (Animal a in result.Animals)
                                 {
@@ -127,6 +129,54 @@ namespace ZooConsole
                             catch (NullReferenceException)
                             {
                                 Console.WriteLine("Sort command must be entered as: sort [sort type] [sort by -- weight or name].");
+                            }
+                            break;
+                        case "search":
+                            if (commandWords[1] == "linear")
+                            {
+                                int loopCounter = 0;
+                                string name = commandWords[2];
+                                foreach (Animal a in zoo.Animals)
+                                {
+                                    loopCounter++;
+                                    if (a.Name == name)
+                                    {
+                                        Console.WriteLine($"{name} found. {loopCounter} loops complete.");
+                                    }
+                                }
+                            }
+
+                            if (commandWords[1] == "binary")
+                            {
+                                int loopCounter = 0;
+                                string name = commandWords[2];
+                                SortResult animals = zoo.SortAnimals("bubble", "name");
+                                int minPosition = 0;
+                                int maxPosition = animals.Animals.Count - 1;
+                                int middlePosition = 0;
+                                int compareResult;
+                                while (minPosition <= maxPosition)
+                                {
+                                    middlePosition = (minPosition + maxPosition) / 2;
+
+                                    loopCounter++;
+
+                                    compareResult = string.Compare(name, animals.Animals[middlePosition].Name.ToLower());
+
+                                    if (compareResult > 0)
+                                    {
+                                        minPosition = middlePosition + 1;
+                                    }
+                                    else if (compareResult < 0)
+                                    {
+                                        maxPosition = middlePosition - 1;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"{name} found. {loopCounter} loops complete.");
+                                        break;
+                                    }
+                                }
                             }
                             break;
                         default:
