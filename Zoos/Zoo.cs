@@ -231,6 +231,10 @@ namespace Zoos
             this.animals.Add(animal);
             Cage cage = this.FindCage(animal.GetType());
             cage.Add(animal);
+            if (animal.IsPregnant == true)
+            {
+                this.b168.PregnantAnimals.Enqueue(animal);
+            }
         }
 
         /// <summary>

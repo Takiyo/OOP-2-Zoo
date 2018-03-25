@@ -24,5 +24,6 @@
         <Button x:Name ="unadoptAnimalButton" Content="Un-Adopt" HorizontalAlignment="Left" Margin="546,324,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.084,0.271" Click="unadoptAnimalButton_Click"/>
         <Button x:Name="changeMoveBehaviorButton" Content="Change Behavior" HorizontalAlignment="Left" Margin="462,352,0,0" VerticalAlignment="Top" Width="94" RenderTransformOrigin="0.053,-0.8" Click="changeMoveBehaviorButton_Click"/>
         <ComboBox x:Name="changeMoveBehaviorComboBox" HorizontalAlignment="Left" Margin="561,352,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+        <Button x:Name="birthAnimalButton" Content="Birth Animal" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="200" Height="20"/>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using People;
 using Reproducers;
 
@@ -42,7 +43,13 @@ namespace BirthingRooms
         {
             this.temperature = this.initialTemperature;
             this.vet = vet;
+            this.PregnantAnimals = new Queue<IReproducer>();
         }
+
+        /// <summary>
+        /// Gets or sets the pregnant animals queue.
+        /// </summary>
+        public Queue<IReproducer> PregnantAnimals { get; private set; }
 
         /// <summary>
         /// Gets or sets the birthing room's temperature.
@@ -86,7 +93,8 @@ namespace BirthingRooms
             if (reproducer != null && reproducer.IsPregnant)
             {
                 // Have the vet deliver the reproducer.
-                baby = this.vet.DeliverAnimal(reproducer);
+                baby = this.vet.DeliverAnimal(this.PregnantAnimals.Dequeue());
+                
 
                 // Increase the birthing room's temperature due to the heat generated from birthing.
                 this.Temperature += 0.5;

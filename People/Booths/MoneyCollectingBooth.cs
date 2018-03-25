@@ -1,6 +1,7 @@
 ﻿using BoothItems;
 using MoneyCollectors;
 using System;
+using System.Collections.Generic;
 
 namespace People
 {
@@ -20,6 +21,11 @@ namespace People
         private decimal ticketPrice;
 
         /// <summary>
+        /// The stack of tickets.
+        /// </summary>
+        private Stack<Ticket> ticketStack;
+
+        /// <summary>
         /// The price of a water bottle.
         /// </summary>
         private decimal waterBottlePrice;
@@ -37,11 +43,12 @@ namespace People
             this.ticketPrice = ticketPrice;
             this.waterBottlePrice = waterBottlePrice;
             this.moneyBox = moneyBox;
+            this.ticketStack = new Stack<Ticket>();
 
             // Create tickets.
             for (int i = 0; i < 5; i++)
             {
-                this.Items.Add(new Ticket(this.TicketPrice, i + 1, 0.01));
+                this.ticketStack.Push(new Ticket(this.TicketPrice, i + 1, 0.01));
             }
 
             // Create water bottles.
@@ -118,7 +125,7 @@ namespace People
                 if (payment >= this.TicketPrice)
                 {
                     // Find the first ticket.
-                    ticket = this.Attendant.FindItem(this.Items, typeof(Ticket)) as Ticket;
+                    ticket = this.ticketStack.Pop();
                 }
 
                 // If a ticket was found...

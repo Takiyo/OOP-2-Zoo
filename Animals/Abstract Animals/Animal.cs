@@ -338,8 +338,10 @@ namespace Animals
         /// <returns>The resulting baby reproducer.</returns>
         public virtual IReproducer Reproduce()
         {
+            int gender = random.Next(1, Enum.GetNames(typeof(Gender)).Length + 1);
+
             // Create a new reproducer.
-            Animal baby = Activator.CreateInstance(this.GetType(), string.Empty, 0, this.Weight * (this.BabyWeightPercentage / 100)) as Animal;
+            Animal baby = Activator.CreateInstance(this.GetType(), string.Empty, 0, this.Weight * (this.BabyWeightPercentage / 100), (gender == 1 ? Gender.Female : Gender.Male)) as Animal;
 
             // Reduce the parent's weight.
             this.Weight -= baby.Weight * 1.25;

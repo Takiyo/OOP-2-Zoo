@@ -442,5 +442,10 @@ namespace ZooScenario
                 MessageBox.Show("Please select a behavior type and an animal to change its move behavior.");
             }
         }
+
+        private void birthAnimalButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
