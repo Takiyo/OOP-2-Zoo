@@ -443,9 +443,14 @@ namespace ZooScenario
             }
         }
 
+        /// <summary>
+        /// Births an animal.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
         private void birthAnimalButton_Click(object sender, RoutedEventArgs e)
         {
-
+            this.comoZoo.BirthAnimal()
         }
     }
 }
