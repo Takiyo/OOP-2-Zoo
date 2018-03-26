@@ -346,8 +346,13 @@ namespace ZooScenario
             {
                 AnimalWindow window = new AnimalWindow(animal);
                 
-                if(window.ShowDialog() == true)
+                if (window.ShowDialog() == true)
                 {
+                    if (animal.IsPregnant == true)
+                    {
+                        this.comoZoo.AddAnimal(animal);
+                        this.comoZoo.RemoveAnimal(animal);
+                    }
                     this.PopulateAnimalListBox();
                 }
             }
@@ -450,7 +455,8 @@ namespace ZooScenario
         /// <param name="e">The event arguments of the event.</param>
         private void birthAnimalButton_Click(object sender, RoutedEventArgs e)
         {
-            this.comoZoo.BirthAnimal()
+            this.comoZoo.BirthAnimal(animalTypeComboBox.SelectedItem as IReproducer);
+            this.PopulateAnimalListBox();
         }
     }
 }
