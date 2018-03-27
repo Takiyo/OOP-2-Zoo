@@ -19,7 +19,7 @@ namespace Animals
         {
             this.BabyWeightPercentage = 17.0;
 
-            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.NoMove);
+            this.MoveBehavior = MoveBehaviorFactory.CreateMoveBehavior(MoveBehaviorType.Climb);
         }
     }
 }

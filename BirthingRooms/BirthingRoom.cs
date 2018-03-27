@@ -85,19 +85,23 @@ namespace BirthingRooms
         /// </summary>
         /// <param name="reproducer">The reproducer that is to give birth.</param>
         /// <returns>The resulting baby reproducer.</returns>
-        public IReproducer BirthAnimal(IReproducer reproducer)
+        public IReproducer BirthAnimal()
         {
             IReproducer baby = null;
 
             // If the reproducer is present and is pregnant...
-            if (reproducer != null && reproducer.IsPregnant)
+            if (this.PregnantAnimals.Count != 0)
             {
                 // Have the vet deliver the reproducer.
                 baby = this.vet.DeliverAnimal(this.PregnantAnimals.Dequeue());
-                
+
 
                 // Increase the birthing room's temperature due to the heat generated from birthing.
                 this.Temperature += 0.5;
+            }
+            else
+            {
+                throw new NullReferenceException("No animals in the zoo are currently pregnant.");
             }
 
             return baby;

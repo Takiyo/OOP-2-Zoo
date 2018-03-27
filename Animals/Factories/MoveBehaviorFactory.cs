@@ -26,6 +26,12 @@ namespace Animals
                 case MoveBehaviorType.Swim:
                     result = new SwimBehavior();
                     break;
+                case MoveBehaviorType.Climb:
+                    result = new ClimbBehavior();
+                    break;
+                case MoveBehaviorType.Hover:
+                    result = new HoverBehavior();
+                    break;
                 case MoveBehaviorType.NoMove:
                     result = new NoMoveBehavior();
                     break;                  

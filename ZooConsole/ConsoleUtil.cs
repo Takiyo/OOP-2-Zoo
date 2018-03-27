@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Animals;
 using People;
 using Reproducers;
+using Utilities;
 
 namespace ZooConsole
 {
@@ -234,6 +236,52 @@ namespace ZooConsole
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Writes details about the help command if it has multiple parameters.
+        /// </summary>
+        /// <param name="command">The subject of the help details.</param>
+        /// <param name="overview">The function of the command.</param>
+        /// <param name="arguments">The parameters to the command.</param>
+        public static void WriteHelpDetail(string command, string overview, Dictionary<string, string> arguments)
+        {
+            Console.WriteLine($"Command name: {command}");
+            Console.WriteLine($"Overview: {overview}");
+
+            if (arguments != null)
+            {
+                Console.WriteLine($"Usage: {command} {ListUtil.Flatten(arguments.Keys, " ")}");
+                Console.WriteLine("Parameters:");
+                foreach (KeyValuePair<string, string> kvp in arguments)
+                {
+                    Console.WriteLine(kvp.Key + ": " + kvp.Value);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes details about the help command if it only has one parameter.
+        /// </summary>
+        /// <param name="command">The subject of the help details.</param>
+        /// <param name="overview">The function of the command.</param>
+        /// <param name="argument">The parameter to the command.</param>
+        /// <param name="argumentUsage">The parameter's description and usage.</param>
+        public static void WriteHelpDetail(string command, string overview, string argument, string argumentUsage)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add(argument, argumentUsage);
+            ConsoleUtil.WriteHelpDetail(command, overview, dictionary);
+        }
+
+        /// <summary>
+        /// Writes details about the help command if it has no parameters.
+        /// </summary>
+        /// <param name="command">The subject of the help details.</param>
+        /// <param name="overview">The function of the command.</param>
+        public static void WriteHelpDetail(string command, string overview)
+        {
+            ConsoleUtil.WriteHelpDetail(command, overview, null);
         }
     }
 }

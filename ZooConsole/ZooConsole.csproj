@@ -80,6 +80,10 @@
       <Project>{28bf9fc3-ea4a-49ad-a49c-fd8ca77174f4}</Project>
       <Name>Reproducers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{3af667a1-8118-4ccf-95f4-f009571bff69}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zoos\Zoos.csproj">
       <Project>{9116e7a7-d531-4b54-a3df-9552f4f06139}</Project>
       <Name>Zoos</Name>

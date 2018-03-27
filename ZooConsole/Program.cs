@@ -52,15 +52,18 @@ namespace ZooConsole
                             Console.WriteLine("A new Como Zoo has been created.");
                             break;
                         case "help":
-                            Console.WriteLine("Known commands:");
-                            Console.WriteLine("HELP: Shows a list of known commands.");
-                            Console.WriteLine("EXIT: Exits the application.");
-                            Console.WriteLine("RESTART: Creates a new zoo.");
-                            Console.WriteLine("TEMPERATURE: Sets the birthing room temperature.");
-                            Console.WriteLine("SHOW ANIMAL [animal name]: Displays information for specified animal.");
-                            Console.WriteLine("SHOW GUEST [guest name]: Displays information for specified guest.");
-                            Console.WriteLine("ADD: Adds an animal or guest to the zoo.");
-                            Console.WriteLine("REMOVE: Removes an animal or guest from the zoo.");
+                            if (commandWords.Length == 1)
+                            {
+                                ConsoleHelper.ShowHelp();
+                            }
+                            else if (commandWords.Length == 2)
+                            {
+                                ConsoleHelper.ShowHelpDetail(commandWords[1]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Too many parameters entered for the HELP command.");
+                            }
 
                             break;
                         case "temp":

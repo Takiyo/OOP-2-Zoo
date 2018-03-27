@@ -24,17 +24,11 @@ namespace Zoos
         /// <param name="height">The cage's height.</param>
         /// <param name="width">The cage's width.</param>
         /// <param name="animalType">The type of animal the cage holds.</param>
-        public Cage(int height, int width, Type animalType)
+        public Cage(int height, int width)
         {
             this.Height = height;
             this.Width = width;
-            this.AnimalType = animalType;
         }
-
-        /// <summary>
-        /// Gets or sets the cage's animal type.
-        /// </summary>
-        public Type AnimalType { get; private set; }
 
         /// <summary>
         /// Gets or sets the cage's height.
@@ -81,7 +75,7 @@ namespace Zoos
         /// <returns>The formatted string.</returns>
         public override string ToString()
         {
-            string result = $"{AnimalType.Name} cage ({this.Width}x{this.Height})";
+            string result = $"{this.cagedItems.First().ToString()} cage ({this.Width}x{this.Height})";
 
             foreach (Animal a in CagedItems)
             {

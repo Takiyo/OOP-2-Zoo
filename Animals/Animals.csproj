@@ -58,9 +58,11 @@
     <Compile Include="Animals\Shark.cs" />
     <Compile Include="Animals\Squirrel.cs" />
     <Compile Include="Factories\MoveBehaviorFactory.cs" />
+    <Compile Include="MoveBehaviors\ClimbBehavior.cs" />
     <Compile Include="MoveBehaviors\FlyBehavior.cs" />
     <Compile Include="Interfaces\IEatBehavior.cs" />
     <Compile Include="Interfaces\IHatchable.cs" />
+    <Compile Include="MoveBehaviors\HoverBehavior.cs" />
     <Compile Include="MoveBehaviors\IMoveBehavior.cs" />
     <Compile Include="Interfaces\IMover.cs" />
     <Compile Include="Abstract Animals\Mammal.cs" />

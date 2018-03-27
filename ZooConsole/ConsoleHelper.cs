@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Accounts;
 using Animals;
 using BoothItems;
@@ -162,6 +163,61 @@ namespace ZooConsole
             {
                 Console.WriteLine("Guest could not be found.");
             }
+        }
+
+        /// <summary>
+        /// Shows details about help command.
+        /// </summary>
+        /// <param name="command">The command entered.</param>
+        public static void ShowHelpDetail(string command)
+        {
+            Dictionary<string, string> arguments;
+            switch (command)
+            {
+                case "show":
+                    arguments = new Dictionary<string, string>();
+                    arguments.Add("objectType", "The type of object to show (ANIMAL, GUEST, or CAGE).");
+                    arguments.Add("objectName", "The name of the object to show (use an animal name for CAGE).");
+                    ConsoleUtil.WriteHelpDetail(command, "Shows details of an object.", arguments);
+                    break;
+                case "remove":
+                    arguments = new Dictionary<string, string>();
+                    arguments.Add("objectType", "The type of object to remove (ANIMAL, or GUEST).");
+                    arguments.Add("objectName", "The name of the object to remove.");
+                    ConsoleUtil.WriteHelpDetail(command, "Removes an object from the zoo.", arguments);
+                    break;
+                case "temp":
+                    ConsoleUtil.WriteHelpDetail(command, "Changes the temperature in the zoo's birthing room.", "temperature",
+                        "The temperature you wish to change the birthing room to, in fahrenheit.");
+                    break;
+                case "add":
+                    ConsoleUtil.WriteHelpDetail(command, "Adds either a guest or an animal to the zoo.", "objectType",
+                        "The type of object to add (ANIMAL or GUEST).");
+                    break;
+                case "restart":
+                    ConsoleUtil.WriteHelpDetail(command, "Creates a new como zoo and erases the old one.");
+                    break;
+                case "exit":
+                    ConsoleUtil.WriteHelpDetail(command, "Exits the application.");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Shows help for commands with no parameters.
+        /// </summary>
+        public static void ShowHelp()
+        {
+            ConsoleUtil.WriteHelpDetail("help", "Show help detail", "[command]", "The (optional) command for which to show help details.");
+            Console.WriteLine("Known commands:");
+            Console.WriteLine("HELP: Shows a list of known commands.");
+            Console.WriteLine("EXIT: Exits the application.");
+            Console.WriteLine("RESTART: Creates a new zoo.");
+            Console.WriteLine("TEMPERATURE: Sets the birthing room temperature.");
+            Console.WriteLine("SHOW ANIMAL [animal name]: Displays information for specified animal.");
+            Console.WriteLine("SHOW GUEST [guest name]: Displays information for specified guest.");
+            Console.WriteLine("ADD: Adds an animal or guest to the zoo.");
+            Console.WriteLine("REMOVE: Removes an animal or guest from the zoo.");
         }
 
         /// <summary>

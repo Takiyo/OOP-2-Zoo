@@ -455,8 +455,15 @@ namespace ZooScenario
         /// <param name="e">The event arguments of the event.</param>
         private void birthAnimalButton_Click(object sender, RoutedEventArgs e)
         {
-            this.comoZoo.BirthAnimal(animalTypeComboBox.SelectedItem as IReproducer);
-            this.PopulateAnimalListBox();
+            try
+            {
+                this.comoZoo.BirthAnimal();
+                this.PopulateAnimalListBox();
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

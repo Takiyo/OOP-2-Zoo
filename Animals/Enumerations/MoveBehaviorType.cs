@@ -14,6 +14,8 @@ namespace Animals
         Fly,
         Pace,
         Swim,
+        Climb,
+        Hover,
         NoMove
     }
 }
