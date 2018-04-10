@@ -102,6 +102,31 @@ namespace Zoos
                 Cage cage = new Cage(400, 800);
                 cages.Add(Animal.ConvertAnimalTypeToType(at), cage);
             }
+
+            // Creates animal hierarchy.
+            Animal brutus = new Dingo("Brutus", 3, 36.0, Gender.Male);
+            Animal coco = new Dingo("Coco", 7, 38.3, Gender.Female);
+            coco.AddChild(brutus);
+
+            Animal toby = new Dingo("Toby", 4, 42.5, Gender.Male);
+            Animal steve = new Dingo("Steve", 4, 41.1, Gender.Male);
+            Animal maggie = new Dingo("Maggie", 7, 34.8, Gender.Female);
+            maggie.AddChild(toby);
+            maggie.AddChild(steve);
+
+            Animal lucy = new Dingo("Lucy", 7, 36.5, Gender.Female);
+            Animal ted = new Dingo("Ted", 7, 39.7, Gender.Male);
+            Animal bella = new Dingo("Bella", 10, 40.2, Gender.Female);
+            bella.AddChild(coco);
+            bella.AddChild(maggie);
+            bella.AddChild(lucy);
+            bella.AddChild(ted);
+
+            List<Animal> tempList = new List<Animal>();
+            tempList.Add(bella);
+            tempList.Add(new Dingo("Max", 12, 46.9, Gender.Male));
+
+            this.AddAnimalsToZoo(tempList);
         }
 
         /// <summary>
@@ -212,6 +237,21 @@ namespace Zoos
             if (animal.IsPregnant == true)
             {
                 this.b168.PregnantAnimals.Enqueue(animal);
+            }
+        }
+
+        /// <summary>
+        /// Adds animals to the zoo.
+        /// </summary>
+        /// <param name="animals">The list of animals to be added to.</param>
+        public void AddAnimalsToZoo(IEnumerable<Animal> animals)
+        {
+            foreach (Animal a in animals)
+            {
+                this.AddAnimal(a);
+
+                // using recursion, add the current animal's children to the zoo
+                AddAnimalsToZoo(a.Children);
             }
         }
 

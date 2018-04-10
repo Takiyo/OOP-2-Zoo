@@ -118,7 +118,9 @@ namespace ZooConsole
                 case "cage":
                     ConsoleHelper.ShowCage(zoo, uppercaseName);
                     
-
+                    break;
+                case "children":
+                    ConsoleHelper.ShowChildren(zoo, uppercaseName);
                     break;
                 default:
                     Console.WriteLine("Unknown type. Only animals and guests can be shown.");
@@ -144,6 +146,17 @@ namespace ZooConsole
             {
                 Console.WriteLine("Animal could not be found.");
             }
+        }
+
+        /// <summary>
+        /// Shows the children of the passed in animal.
+        /// </summary>
+        /// <param name="zoo">The zoo that houses the animals.</param>
+        /// <param name="name">The name of the animal's children being shown.</param>
+        private static void ShowChildren(Zoo zoo, string name)
+        {
+            Animal animal = zoo.FindAnimal(name);
+            ConsoleHelper.WalkTree(animal, "");
         }
 
         /// <summary>
@@ -425,6 +438,16 @@ namespace ZooConsole
             {
                 Console.WriteLine("Animal could not be found.");
             }
+        }
+
+        /// <summary>
+        /// placeholder
+        /// </summary>
+        /// <param name="animal"></param>
+        /// <param name="prefix"></param>
+        private static void WalkTree(Animal animal, string prefix)
+        {
+
         }
     }
 }

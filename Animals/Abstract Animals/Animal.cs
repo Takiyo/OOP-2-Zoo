@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Timers;
 using Foods;
@@ -28,6 +29,11 @@ namespace Animals
         private Gender gender;
 
         /// <summary>
+        /// An animal's list of children.
+        /// </summary>
+        private List<Animal> children;
+
+        /// <summary>
         /// A value indicating whether or not the animal is pregnant.
         /// </summary>
         private bool isPregnant;
@@ -52,8 +58,6 @@ namespace Animals
         /// </summary>
         private double weight;
 
-
-
         /// <summary>
         /// Initializes a new instance of the Animal class.
         /// </summary>
@@ -67,6 +71,7 @@ namespace Animals
             this.gender = gender;
             this.name = name;
             this.weight = weight;
+            this.children = new List<Animal>();
 
             this.XPositionMax = 800;
             this.YPositionMax = 400;
@@ -129,6 +134,17 @@ namespace Animals
             protected set
             {
                 this.babyWeightPercentage = value;
+            }
+        }
+
+        /// <summary>
+        /// An animal's list of children.
+        /// </summary>
+        public IEnumerable<Animal> Children
+        {
+            get
+            {
+                return this.children;
             }
         }
 
@@ -246,6 +262,15 @@ namespace Animals
         public int YPositionMax { get; set; }
 
         /// <summary>
+        /// Adds a child to the list of animal's children.
+        /// </summary>
+        /// <param name="animal"></param>
+        public void AddChild(Animal animal)
+        {
+            this.children.Add(animal);
+        }
+
+        /// <summary>
         /// Converts animal type to type.
         /// </summary>
         /// <param name="animalType">Animaltype to be converted.</param>
@@ -342,6 +367,9 @@ namespace Animals
 
             // Create a new reproducer.
             Animal baby = Activator.CreateInstance(this.GetType(), string.Empty, 0, this.Weight * (this.BabyWeightPercentage / 100), (gender == 1 ? Gender.Female : Gender.Male)) as Animal;
+
+            // Adds baby to mother's list of children.
+            this.AddChild(baby);
 
             // Reduce the parent's weight.
             this.Weight -= baby.Weight * 1.25;
