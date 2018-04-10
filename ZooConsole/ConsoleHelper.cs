@@ -447,7 +447,9 @@ namespace ZooConsole
         /// <param name="prefix"></param>
         private static void WalkTree(Animal animal, string prefix)
         {
-
+            Console.WriteLine(prefix + animal.ToString());
+            if(animal.Children[0]
+            ConsoleHelper.WalkTree(animal.Children, "  ");
         }
     }
 }
