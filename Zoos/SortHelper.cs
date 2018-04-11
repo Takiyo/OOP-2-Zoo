@@ -370,7 +370,7 @@ namespace Zoos
                 }
 
                 // while the pivot animal's name is less than the name of the animal at the right pointer spot in the list
-                while (string.Compare(animals[rightPointer].Name, pivotAnimal.Name) > 0)
+                while (string.Compare(pivotAnimal.Name, animals[rightPointer].Name) > 0)
                 {
                     // decrement right pointer
                     rightPointer--;
@@ -382,9 +382,8 @@ namespace Zoos
                 if (leftPointer <= rightPointer)
                 {
                     // swap the animals at the left pointer and right pointer spots
-                    int placeholderPointer = leftPointer;
-                    leftPointer = rightPointer;
-                    rightPointer = placeholderPointer;
+                    SortHelper.Swap(animals, leftPointer, rightPointer);
+
                     // increment the sort result's swap count
                     swapCounter++;
                     // then increment the left pointer and decrement the right pointer
@@ -403,14 +402,14 @@ namespace Zoos
             // use recursion to sort the animals within the left index and right pointer
             if (leftIndex < rightPointer)
             {
-                SortHelper.QuickSortByWeight(animals, leftIndex, rightPointer, sortResult);
+                SortHelper.QuickSortByName(animals, leftIndex, rightPointer, sortResult);
             }
 
             // if the left pointer is less than the right index
             // use recursion to sort the animals within the left pointer and right index
             if (leftPointer < rightIndex)
             {
-                SortHelper.QuickSortByWeight(animals, leftPointer, rightIndex, sortResult);
+                SortHelper.QuickSortByName(animals, leftPointer, rightIndex, sortResult);
             }
 
 
@@ -480,9 +479,8 @@ namespace Zoos
                 if (leftPointer <= rightPointer)
                 {
                     // swap the animals at the left pointer and right pointer spots
-                    int placeholderPointer = leftPointer;
-                    leftPointer = rightPointer;
-                    rightPointer = placeholderPointer;
+                    SortHelper.Swap(animals, leftPointer, rightPointer);
+
                     // increment the sort result's swap count
                     swapCounter++;
                     // then increment the left pointer and decrement the right pointer

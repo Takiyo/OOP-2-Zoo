@@ -44,7 +44,7 @@ namespace Animals
                 // move vertically
                 MoveHelper.MoveVertically(animal, animal.MoveDistance);
                 // if the animal's next step will take it above the max height
-                if (animal.YPosition - animal.MoveDistance < maxHeight)
+                if (animal.YPosition - animal.MoveDistance <= maxHeight)
                 {
                     // make animal move down
                     animal.YDirection = VerticalDirection.Up;
