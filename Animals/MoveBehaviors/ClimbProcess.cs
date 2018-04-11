@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 namespace Animals
 {
     /// <summary>
-    /// The enum that represents the types of moving.
+    /// The class used to represent the three states of climbing.
     /// </summary>
-    public enum MoveBehaviorType
+    public enum ClimbProcess
     {
-        Fly,
-        Pace,
-        Swim,
-        Climb,
-        Hover,
-        Hop,
-        NoMove
+        Climbing,
+        Falling,
+        Scurrying
     }
 }

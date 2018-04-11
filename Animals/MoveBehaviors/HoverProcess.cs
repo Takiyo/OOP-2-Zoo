@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 namespace Animals
 {
     /// <summary>
-    /// The enum that represents the types of moving.
+    /// The enum used to represent the two states of hovering.
     /// </summary>
-    public enum MoveBehaviorType
+    public enum HoverProcess
     {
-        Fly,
-        Pace,
-        Swim,
-        Climb,
-        Hover,
-        Hop,
-        NoMove
+        Hovering,
+        Zooming
     }
 }

@@ -18,6 +18,7 @@ namespace Animals
             : base(name, age, weight, gender)
         {
             this.BabyWeightPercentage = 13.0;
+            this.MoveBehavior = new HopBehavior();
         }
     }
 }

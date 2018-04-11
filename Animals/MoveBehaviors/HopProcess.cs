@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 namespace Animals
 {
     /// <summary>
-    /// The enum that represents the types of moving.
+    /// The class used to represent the two states of hopping.
     /// </summary>
-    public enum MoveBehaviorType
+    public enum HopProcess
     {
-        Fly,
-        Pace,
-        Swim,
-        Climb,
-        Hover,
-        Hop,
-        NoMove
+        Rising,
+        Falling
     }
 }

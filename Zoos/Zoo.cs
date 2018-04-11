@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Accounts;
 using Animals;
 using BirthingRooms;
@@ -507,6 +508,17 @@ namespace Zoos
                     if (sortValue == "name")
                     {
                         result = SortHelper.InsertionSortByName(this.animals);
+                    }
+                    break;
+
+                case "quick":
+                    if (sortValue == "weight")
+                    {
+                        result = SortHelper.QuickSortByWeight(this.animals, 0, this.animals.Count - 1, result);
+                    }
+                    if (sortValue == "name")
+                    {
+                        result = SortHelper.QuickSortByName(this.animals, 0, this.animals.Count - 1, result);
                     }
                     break;
             }

@@ -32,6 +32,9 @@ namespace Animals
                 case MoveBehaviorType.Hover:
                     result = new HoverBehavior();
                     break;
+                case MoveBehaviorType.Hop:
+                    result = new HopBehavior();
+                    break;
                 case MoveBehaviorType.NoMove:
                     result = new NoMoveBehavior();
                     break;                  

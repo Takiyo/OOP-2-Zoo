@@ -11,7 +11,7 @@ namespace Animals
     /// </summary>
     public class FlyBehavior : IMoveBehavior
     {
-        private static int evenOrOdd = 2;
+        private int evenOrOdd = 2;
 
         public void Move(Animal animal)
         {
