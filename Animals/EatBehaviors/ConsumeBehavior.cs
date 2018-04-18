@@ -10,6 +10,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent consuming.
     /// </summary>
+    [Serializable]
     public class ConsumeBehavior : IEatBehavior
     {
         public void Eat(IEater eater, Food food)

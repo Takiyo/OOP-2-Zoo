@@ -1,11 +1,13 @@
 ﻿using MoneyCollectors;
 using Reproducers;
+using System;
 
 namespace Animals
 {
     /// <summary>
     /// The class which is used to represent a chimpanzee.
     /// </summary>
+    [Serializable]
     public class Chimpanzee : Mammal, IMoneyCollector
     {
         /// <summary>

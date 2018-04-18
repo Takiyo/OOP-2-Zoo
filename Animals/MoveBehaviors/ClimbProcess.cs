@@ -9,6 +9,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent the three states of climbing.
     /// </summary>
+    [Serializable]
     public enum ClimbProcess
     {
         Climbing,

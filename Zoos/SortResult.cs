@@ -10,6 +10,7 @@ namespace Zoos
     /// <summary>
     /// The class which represents the result of the sorting algorithm.
     /// </summary>
+    [Serializable]
     public class SortResult
     {
         /// <summary>

@@ -9,6 +9,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent flying.
     /// </summary>
+    [Serializable]
     public class FlyBehavior : IMoveBehavior
     {
         private int evenOrOdd = 2;

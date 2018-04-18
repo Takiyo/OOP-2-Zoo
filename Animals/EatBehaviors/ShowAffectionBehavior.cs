@@ -10,6 +10,7 @@ namespace Animals
     /// <summary>
     /// The class used to show affection.
     /// </summary>
+    [Serializable]
     public class ShowAffectionBehavior : IEatBehavior
     {
         public void Eat(IEater eater, Food food)

@@ -16,6 +16,25 @@ namespace ZooConsole
     internal static class ConsoleHelper
     {
         /// <summary>
+        /// Saves the zoo to a file.
+        /// </summary>
+        /// <param name="zoo">The zoo to be saved.</param>
+        /// <param name="fileName">The file saved.</param>
+        public static void SaveFile(Zoo zoo, string fileName)
+        {
+            try
+            {
+                zoo.SaveToFile(fileName);
+
+                Console.WriteLine("Your zoo has been successfully saved.");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("The save was unsuccessful.");
+            }
+        }
+
+        /// <summary>
         /// Sets the birthing room temperature of a zoo.
         /// </summary>
         /// <param name="zoo">The zoo to update.</param>

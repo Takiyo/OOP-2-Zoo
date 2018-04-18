@@ -1,5 +1,5 @@
-﻿
-using Reproducers;
+﻿using Reproducers;
+using System;
 using Utilities;
 
 namespace Animals
@@ -7,6 +7,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent a bird.
     /// </summary>
+    [Serializable]
     public abstract class Bird : Animal, IHatchable
     {
         /// <summary>

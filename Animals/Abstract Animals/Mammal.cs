@@ -1,5 +1,6 @@
 ﻿using Foods;
 using Reproducers;
+using System;
 using Utilities;
 
 namespace Animals
@@ -7,6 +8,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent a mammal.
     /// </summary>
+    [Serializable]
     public abstract class Mammal : Animal
     {
         /// <summary>

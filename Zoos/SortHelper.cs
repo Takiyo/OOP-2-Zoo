@@ -11,6 +11,7 @@ namespace Zoos
     /// <summary>
     /// The class used to represent a sorting algorithm helper.
     /// </summary>
+    [Serializable]
     public static class SortHelper
     {
         /// <summary>

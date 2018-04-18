@@ -14,6 +14,7 @@ namespace People
     /// <summary>
     /// The class which is used to represent a guest.
     /// </summary>
+    [Serializable]
     public class Guest : IEater, ICageable
     {
         /// <summary>

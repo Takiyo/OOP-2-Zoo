@@ -1,8 +1,11 @@
-﻿namespace MoneyCollectors
+﻿using System;
+
+namespace MoneyCollectors
 {
     /// <summary>
     /// The class that represents a pocket for collecting money.
     /// </summary>
+    [Serializable]
     public class MoneyPocket : MoneyCollector
     {
         /// <summary>

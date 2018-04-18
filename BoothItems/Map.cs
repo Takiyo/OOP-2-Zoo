@@ -5,6 +5,7 @@ namespace BoothItems
     /// <summary>
     /// The class which is used to represent a map.
     /// </summary>
+    [Serializable]
     public class Map : Item
     {
         /// <summary>

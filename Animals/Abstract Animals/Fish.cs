@@ -1,4 +1,5 @@
 ﻿using Reproducers;
+using System;
 using Utilities;
 
 namespace Animals
@@ -6,6 +7,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent a fish.
     /// </summary>
+    [Serializable]
     public abstract class Fish : Animal
     {
         /// <summary>

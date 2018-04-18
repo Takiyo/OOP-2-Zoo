@@ -1,10 +1,12 @@
 ﻿using MoneyCollectors;
+using System;
 
 namespace People
 {
     /// <summary>
     /// The class which is used to represent a wallet.
     /// </summary>
+    [Serializable]
     public class Wallet : IMoneyCollector
     {
         /// <summary>

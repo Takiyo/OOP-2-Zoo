@@ -9,6 +9,7 @@ namespace BoothItems
     /// <summary>
     /// The class used to represent a custom missing item exception.
     /// </summary>
+    [Serializable]
     public class MissingItemException : Exception
     {
         /// <summary>

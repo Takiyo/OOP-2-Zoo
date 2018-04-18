@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Accounts;
 using Animals;
 using BirthingRooms;
@@ -15,6 +17,7 @@ namespace Zoos
     /// <summary>
     /// The class which is used to represent a zoo.
     /// </summary>
+    [Serializable]
     public class Zoo
     {
         /// <summary>
@@ -449,6 +452,25 @@ namespace Zoos
         public void RemoveGuest(Guest guest)
         {
             this.guests.Remove(guest);
+        }
+
+        /// <summary>
+        /// Saves the zoo to a file.
+        /// </summary>
+        /// <param name="fileName">The file to be saved.</param>
+        public void SaveToFile(string fileName)
+        {
+            // Create a binary formatter
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            // Create a file using the passed-in file name
+            // Use a using statement to automatically clean up object references
+            // and close the file handle when the serialization process is complete
+            using (Stream stream = File.Create(fileName))
+            {
+                // Serialize (save) the current instance of the zoo
+                formatter.Serialize(stream, this);
+            }
         }
 
         /// <summary>

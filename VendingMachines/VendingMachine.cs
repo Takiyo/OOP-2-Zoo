@@ -7,6 +7,7 @@ namespace VendingMachines
     /// <summary>
     /// The class which is used to represent a vending machine.
     /// </summary>
+    [Serializable]
     public class VendingMachine
     {
         /// <summary>

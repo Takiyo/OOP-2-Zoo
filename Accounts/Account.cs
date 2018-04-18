@@ -1,10 +1,12 @@
 ﻿using MoneyCollectors;
+using System;
 
 namespace Accounts
 {
     /// <summary>
     /// The class that represents an account.
     /// </summary>
+    [Serializable]
     public class Account : IMoneyCollector
     {
         /// <summary>

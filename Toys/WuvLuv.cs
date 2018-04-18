@@ -1,11 +1,13 @@
 ﻿using Animals;
 using Reproducers;
+using System;
 
 namespace Toys
 {
     /// <summary>
     /// The class which is used to represent a WuvLuv.
     /// </summary>
+    [Serializable]
     public class WuvLuv : IHatchable, IReproducer
     {
         /// <summary>

@@ -6,6 +6,7 @@ namespace People
     /// <summary>
     /// The class which is used to represent a giving booth.
     /// </summary>
+    [Serializable]
     public class GivingBooth : Booth
     {
         /// <summary>

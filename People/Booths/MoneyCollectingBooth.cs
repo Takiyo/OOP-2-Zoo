@@ -8,6 +8,7 @@ namespace People
     /// <summary>
     /// The class which is used to represent a money-collecting booth.
     /// </summary>
+    [Serializable]
     public class MoneyCollectingBooth : Booth
     {
         /// <summary>

@@ -10,6 +10,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent burying and eating a bone.
     /// </summary>
+    [Serializable]
     public class BuryAndEatBoneBehavior : IEatBehavior
     {
         public void Eat(IEater eater, Food food)

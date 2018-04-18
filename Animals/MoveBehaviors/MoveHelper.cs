@@ -10,6 +10,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent a move helper.
     /// </summary>
+    [Serializable]
     public static class MoveHelper
     {
         public static void MoveHorizontally(Animal animal, int moveDistance)

@@ -8,6 +8,7 @@ namespace BirthingRooms
     /// <summary>
     /// The class which is used to represent a birthing room.
     /// </summary>
+    [Serializable]
     public class BirthingRoom
     {
         /// <summary>

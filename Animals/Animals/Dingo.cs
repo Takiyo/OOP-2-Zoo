@@ -7,6 +7,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent a dingo.
     /// </summary>
+    [Serializable]
     public class Dingo : Mammal
     {
         /// <summary>

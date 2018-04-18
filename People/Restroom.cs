@@ -1,10 +1,12 @@
 ﻿using Reproducers;
+using System;
 
 namespace People
 {
     /// <summary>
     /// The class which is used to represent a restroom.
     /// </summary>
+    [Serializable]
     public class Restroom
     {
         /// <summary>

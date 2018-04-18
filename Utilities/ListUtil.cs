@@ -9,6 +9,7 @@ namespace Utilities
     /// <summary>
     /// The class used to repesent a list utility.
     /// </summary>
+    [Serializable]
     public static class ListUtil
     {
         /// <summary>

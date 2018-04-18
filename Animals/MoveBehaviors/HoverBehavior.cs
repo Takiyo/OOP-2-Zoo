@@ -9,6 +9,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent hovering
     /// </summary>
+    [Serializable]
     public class HoverBehavior : IMoveBehavior
     {
         /// <summary>

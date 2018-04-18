@@ -9,6 +9,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent pacing.
     /// </summary>
+    [Serializable]
     public class PaceBehavior : IMoveBehavior
     {
         public void Move(Animal animal)

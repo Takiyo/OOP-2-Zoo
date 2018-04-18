@@ -10,6 +10,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent climbing.
     /// </summary>
+    [Serializable]
     public class ClimbBehavior : IMoveBehavior
     {
         /// <summary>

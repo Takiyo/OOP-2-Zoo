@@ -1,8 +1,11 @@
-﻿namespace Foods
+﻿using System;
+
+namespace Foods
 {
     /// <summary>
     /// The class which is used to represent food.
     /// </summary>
+    [Serializable]
     public class Food
     {
         /// <summary>

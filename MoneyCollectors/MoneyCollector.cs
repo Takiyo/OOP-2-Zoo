@@ -1,8 +1,11 @@
-﻿namespace MoneyCollectors
+﻿using System;
+
+namespace MoneyCollectors
 {
     /// <summary>
     /// The class which is used to represent a money collector.
     /// </summary>
+    [Serializable]
     public abstract class MoneyCollector : IMoneyCollector
     {
         /// <summary>

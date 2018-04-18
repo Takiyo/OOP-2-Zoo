@@ -10,7 +10,8 @@ namespace Animals
     /// <summary>
     /// Creates move behaviors.
     /// </summary>
-   public static class MoveBehaviorFactory
+    [Serializable]
+    public static class MoveBehaviorFactory
     {
         public static IMoveBehavior CreateMoveBehavior(MoveBehaviorType type)
         {

@@ -11,6 +11,7 @@ namespace Zoos
     /// <summary>
     /// The class used to represent an animal cage.
     /// </summary>
+    [Serializable]
     public class Cage
     {
         /// <summary>

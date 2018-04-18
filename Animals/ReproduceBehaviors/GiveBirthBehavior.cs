@@ -11,6 +11,7 @@ namespace Animals
     /// <summary>
     /// The class that represents a reproducing behavior of giving birth.
     /// </summary>
+    [Serializable]
     public class GiveBirthBehavior : IReproduceBehavior
     {
         /// <summary>

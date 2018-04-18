@@ -6,6 +6,7 @@ namespace Animals
     /// <summary>
     /// The class that represents a factory for creating animals.
     /// </summary>
+    [Serializable]
     public static class AnimalFactory
     {
         /// <summary>

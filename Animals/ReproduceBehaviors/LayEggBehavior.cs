@@ -6,6 +6,7 @@ namespace Animals
     /// <summary>
     /// The class that represents a reproducing behavior of laying an egg.
     /// </summary>
+    [Serializable]
     public class LayEggBehavior : IReproduceBehavior
     {
         /// <summary>

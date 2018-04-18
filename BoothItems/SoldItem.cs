@@ -1,8 +1,11 @@
-﻿namespace BoothItems
+﻿using System;
+
+namespace BoothItems
 {
     /// <summary>
     /// The class which is used to represent a sold item.
     /// </summary>
+    [Serializable]
     public abstract class SoldItem : Item
     {
         /// <summary>

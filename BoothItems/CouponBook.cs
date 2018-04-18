@@ -5,6 +5,7 @@ namespace BoothItems
     /// <summary>
     /// The class which is used to represent a coupon book.
     /// </summary>
+    [Serializable]
     public class CouponBook : Item
     {
         /// <summary>

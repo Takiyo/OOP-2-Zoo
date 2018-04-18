@@ -1,10 +1,12 @@
 ﻿using Reproducers;
+using System;
 
 namespace Animals
 {
     /// <summary>
     /// The class which is used to represent a hummingbird.
     /// </summary>
+    [Serializable]
     public class Hummingbird : Bird
     {
         /// <summary>

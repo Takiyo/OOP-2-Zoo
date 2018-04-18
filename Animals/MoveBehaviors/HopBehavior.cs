@@ -10,6 +10,7 @@ namespace Animals
     /// <summary>
     /// The class used to represent hop behavior.
     /// </summary>
+    [Serializable]
     public class HopBehavior : IMoveBehavior
     {
         /// <summary>

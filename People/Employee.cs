@@ -10,6 +10,7 @@ namespace People
     /// <summary>
     /// The class which is used to represent an employee.
     /// </summary>
+    [Serializable]
     public class Employee : IEater
     {
         /// <summary>

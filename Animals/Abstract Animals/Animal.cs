@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Timers;
 using Foods;
 using Reproducers;
 using Utilities;
 
+
 namespace Animals
 {
     /// <summary>
     /// The class which is used to represent an animal.
     /// </summary>
+    [Serializable]
     public abstract class Animal : IEater, IMover, IReproducer, ICageable
     {
         /// <summary>
@@ -41,6 +44,7 @@ namespace Animals
         /// <summary>
         /// The timer the animal moves on.
         /// </summary>
+        [NonSerialized]
         private Timer moveTimer;
 
         /// <summary>
@@ -84,9 +88,7 @@ namespace Animals
             this.YDirection = Animal.random.Next(0, 2) == 0 ? VerticalDirection.Up : VerticalDirection.Down;
             this.XDirection = Animal.random.Next(0, 2) == 0 ? HorizontalDirection.Left : HorizontalDirection.Right;
 
-            this.moveTimer = new Timer(250);
-            this.moveTimer.Elapsed += this.MoveHandler;
-            this.moveTimer.Start();
+            this.CreateTimers();
         }
 
         /// <summary>
@@ -313,6 +315,26 @@ namespace Animals
             }
 
             return type;
+        }
+
+        /// <summary>
+        /// Creates a timer.
+        /// </summary>
+        private void CreateTimers()
+        {
+            this.moveTimer = new Timer(250);
+            this.moveTimer.Elapsed += this.MoveHandler;
+            this.moveTimer.Start();
+        }
+
+        /// <summary>
+        /// placeholder
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            this.CreateTimers();
         }
 
         /// <summary>

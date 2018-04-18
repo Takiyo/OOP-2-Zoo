@@ -1,5 +1,6 @@
 ﻿using Foods;
 using Reproducers;
+using System;
 using Utilities;
 
 namespace Animals
@@ -7,6 +8,7 @@ namespace Animals
     /// <summary>
     /// The class which is used to represent a platypus.
     /// </summary>
+    [Serializable]
     public sealed class Platypus : Mammal, IHatchable
     {
         /// <summary>

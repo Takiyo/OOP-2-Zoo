@@ -8,6 +8,7 @@ namespace People
     /// <summary>
     /// The class which is used to represent a booth.
     /// </summary>
+    [Serializable]
     public abstract class Booth
     {
         /// <summary>
