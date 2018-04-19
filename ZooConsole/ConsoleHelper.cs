@@ -436,6 +436,27 @@ namespace ZooConsole
         }
 
         /// <summary>
+        /// Loads a file.
+        /// </summary>
+        /// <param name="fileName">The file name to be loaded.</param>
+        /// <returns>The loaded zoo.</returns>
+        public static Zoo LoadFile(string fileName)
+        {
+            try
+            {
+                Zoo zoo = Zoo.LoadFromFile(fileName);
+
+                Console.WriteLine("Your zoo has been loaded successfully.");
+                return zoo;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("The load was unsuccessful");
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Shows the cage in the console.
         /// </summary>
         /// <param name="zoo">The zoo whose cage is to be shown.</param>

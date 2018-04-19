@@ -547,5 +547,29 @@ namespace Zoos
 
             return result;
         }
+
+        /// <summary>
+        /// Loads a zoo from the passed-in file.
+        /// </summary>
+        /// <param name="fileName">The file name to be loaded.</param>
+        /// <returns>The zoo from the file.</returns>
+        public static Zoo LoadFromFile(string fileName)
+        {
+            Zoo result = null;
+
+            // Create a binary formatter
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            // Open and read a file using the passed-in file name
+            // Use a using statement to automatically clean up object references
+            // and close the file handle when the deserialization process is complete
+            using (Stream stream = File.OpenRead(fileName))
+            {
+                // Deserialize (load) the file as a zoo
+                result = formatter.Deserialize(stream) as Zoo;
+            }
+
+            return result;
+        }
     }
 }

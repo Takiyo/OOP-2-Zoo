@@ -185,9 +185,11 @@ namespace ZooConsole
                         case "save":
                             ConsoleHelper.SaveFile(zoo, commandWords[1]);
                             break;
+                        case "load":
+                            ConsoleHelper.LoadFile(commandWords[1]);
+                            break;
                         default:
                             Console.WriteLine("Invalid command entered.");
-
                             break;
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,6 +11,8 @@ using MoneyCollectors;
 using People;
 using Reproducers;
 using Zoos;
+using System.ComponentModel;
+using Microsoft.Win32;
 
 namespace ZooScenario
 {
@@ -23,6 +26,11 @@ namespace ZooScenario
         /// Minnesota's Como Zoo.
         /// </summary>
         private Zoo comoZoo;
+
+        /// <summary>
+        /// The auto save's file name.
+        /// </summary>
+        private const string AutoSaveFileName = "Autosave.zoo";
 
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
@@ -310,31 +318,6 @@ namespace ZooScenario
         }
 
         /// <summary>
-        /// This code runs when the window is loaded.
-        /// </summary>
-        /// <param name="sender">The object that initiated the event.</param>
-        /// <param name="e">The event arguments of the event.</param>
-        private void window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.comoZoo = Zoo.NewZoo();
-
-            this.ConfigureBirthingRoomControls();
-
-            try
-            {
-                this.animalTypeComboBox.ItemsSource = Enum.GetValues(typeof(AnimalType));
-                this.changeMoveBehaviorComboBox.ItemsSource = Enum.GetValues(typeof(MoveBehaviorType));
-
-                this.PopulateAnimalListBox();
-                this.PopulateGuestListBox();
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Must select the type of animal to create.");
-            }   
-        }
-
-        /// <summary>
         /// Edits the selected animal.
         /// </summary>
         /// <param name="sender">The object that initiated the event.</param>
@@ -464,6 +447,147 @@ namespace ZooScenario
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Saves the current state of the zoo.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Zoo save-game files (*.zoo)|*.zoo";
+            if (dialog.ShowDialog() == true)
+            {
+                this.SaveZoo(dialog.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Saves the current state of the zoo.
+        /// </summary>
+        /// <param name="fileName">The file name of the saved zoo.</param>
+        private void SaveZoo(string fileName)
+        {
+            this.comoZoo.SaveToFile(fileName);
+            SetWindowTitle(fileName);
+        }
+
+        /// <summary>
+        /// Sets the window title to the passed in file name.
+        /// </summary>
+        /// <param name="fileName"></param>
+        private void SetWindowTitle(string fileName)
+        {
+            // Set the title of the window using the current file name
+            this.Title = string.Format("Object-Oriented Programming 2: Zoo [{0}]", Path.GetFileName(fileName));
+        }
+
+        /// <summary>
+        /// Loads a zoo from a local file.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+
+        private void loadButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Zoo save-game files (*.zoo)|*.zoo";
+            if (dialog.ShowDialog() == true)
+            {
+                this.ClearWindow();
+                this.LoadZoo(dialog.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Loads the zoo.
+        /// </summary>
+        /// <param name="fileName"></param>
+        private bool LoadZoo(string fileName)
+        {
+            bool result = true;
+            try
+            {
+                this.comoZoo = Zoo.LoadFromFile(fileName);
+
+                SetWindowTitle(fileName);
+
+                this.PopulateAnimalListBox();
+                this.PopulateGuestListBox();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The zoo failed to load.");
+                result = false;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Clears the window.
+        /// </summary>
+        private void ClearWindow()
+        {
+            animalListBox.ItemsSource = null;
+            guestListBox.ItemsSource = null;
+        }
+
+        /// <summary>
+        /// Loads a zoo from a local file.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+
+        private void restartButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to start over?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                this.ClearWindow();
+                Zoo.NewZoo();
+                this.SetWindowTitle("Object-Oriented Programming 2: Zoo");
+            }
+        }
+
+        /// <summary>
+        /// This code runs when the window is loaded.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+        private void window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (LoadZoo(AutoSaveFileName) == false)
+            {
+                this.comoZoo = Zoo.NewZoo();
+            }
+
+            this.ConfigureBirthingRoomControls();
+
+            try
+            {
+                this.animalTypeComboBox.ItemsSource = Enum.GetValues(typeof(AnimalType));
+                this.changeMoveBehaviorComboBox.ItemsSource = Enum.GetValues(typeof(MoveBehaviorType));
+
+                this.PopulateAnimalListBox();
+                this.PopulateGuestListBox();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Must select the type of animal to create.");
+            }
+        }
+
+        /// <summary>
+        /// When the window closes, the zoo autosaves.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+
+        private void window_Closing(object sender, CancelEventArgs e)
+        {
+            this.SaveZoo(AutoSaveFileName);
         }
     }
 }
