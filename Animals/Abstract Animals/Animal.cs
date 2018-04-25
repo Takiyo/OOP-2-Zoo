@@ -208,6 +208,7 @@ namespace Animals
                 }
 
                 this.name = value;
+                // Placeholder - not sure how to call OnTextChange from here.
             }
         }
 

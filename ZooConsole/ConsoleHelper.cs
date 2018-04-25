@@ -46,8 +46,7 @@ namespace ZooConsole
                 double newTemp = double.Parse(temperature);
                 double previousTemp = zoo.BirthingRoomTemperature;
                 zoo.BirthingRoomTemperature = newTemp;
-                Console.WriteLine($"Previous temperature: {previousTemp:0.0}.");
-                Console.WriteLine($"New temperature: {zoo.BirthingRoomTemperature:0.0}.");
+
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -492,6 +491,26 @@ namespace ZooConsole
             {
                 ConsoleHelper.WalkTree(a, prefix + "  ");
             }
+        }
+
+        /// <summary>
+        /// Attaches delegates to the zoo.
+        /// </summary>
+        /// <param name="zoo">The zoo being changed.</param>
+        public static void AttachDelegates(Zoo zoo)
+        {
+             zoo.OnBirthingRoomTemperatureChange += ConsoleHelper.HandleBirthingRoomTemperatureChange;
+        }
+
+        /// <summary>
+        /// Handles the birthing room temp change.
+        /// </summary>
+        /// <param name="previousTemp">The temp the birthing room was previously.</param>
+        /// <param name="currentTemp">The temp the birthing room is currently.</param>
+        private static void HandleBirthingRoomTemperatureChange(double previousTemp, double currentTemp)
+        {
+            Console.WriteLine($"Previous temperature: {previousTemp}");
+            Console.WriteLine($"Current temperature: {currentTemp}");
         }
     }
 }

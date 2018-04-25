@@ -28,6 +28,7 @@ namespace People
         {
             this.color = color;
             this.moneyPocket = moneyPocket;
+            this.moneyPocket.OnBalanceChange += this.HandleBalanceChange;
         }
 
         /// <summary>
@@ -54,6 +55,19 @@ namespace People
             get
             {
                 return this.moneyPocket.MoneyBalance;
+            }
+        }
+
+        public Action OnBalanceChange { get; set; }
+
+        /// <summary>
+        /// Handles when a balance change occurs in the wallet.
+        /// </summary>
+        private void HandleBalanceChange()
+        {
+            if (this.OnBalanceChange != null)
+            {
+                this.OnBalanceChange();
             }
         }
 

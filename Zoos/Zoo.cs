@@ -20,6 +20,15 @@ namespace Zoos
     [Serializable]
     public class Zoo
     {
+        [NonSerialized]
+        private Action<double, double> onBirthingRoomTemperatureChange;
+
+        [NonSerialized]
+        private Action<Guest> onAddGuest;
+
+        [NonSerialized]
+        private Action<Guest> onRemoveGuest;
+
         /// <summary>
         /// A list of all animals currently residing within the zoo.
         /// </summary>
@@ -92,6 +101,7 @@ namespace Zoos
             this.animals = new List<Animal>();
             this.animalSnackMachine = new VendingMachine(animalFoodPrice, new Account());
             this.b168 = new BirthingRoom(vet);
+            this.b168.OnTemperatureChange += this.HandleBirthingRoomTemperatureChange;
             this.capacity = capacity;
             this.guests = new List<Guest>();
             this.informationBooth = new GivingBooth(attendant);
@@ -107,30 +117,6 @@ namespace Zoos
                 cages.Add(Animal.ConvertAnimalTypeToType(at), cage);
             }
 
-            // Creates animal hierarchy.
-            Animal brutus = new Dingo("Brutus", 3, 36.0, Gender.Male);
-            Animal coco = new Dingo("Coco", 7, 38.3, Gender.Female);
-            coco.AddChild(brutus);
-
-            Animal toby = new Dingo("Toby", 4, 42.5, Gender.Male);
-            Animal steve = new Dingo("Steve", 4, 41.1, Gender.Male);
-            Animal maggie = new Dingo("Maggie", 7, 34.8, Gender.Female);
-            maggie.AddChild(toby);
-            maggie.AddChild(steve);
-
-            Animal lucy = new Dingo("Lucy", 7, 36.5, Gender.Female);
-            Animal ted = new Dingo("Ted", 7, 39.7, Gender.Male);
-            Animal bella = new Dingo("Bella", 10, 40.2, Gender.Female);
-            bella.AddChild(coco);
-            bella.AddChild(maggie);
-            bella.AddChild(lucy);
-            bella.AddChild(ted);
-
-            List<Animal> tempList = new List<Animal>();
-            tempList.Add(bella);
-            tempList.Add(new Dingo("Max", 12, 46.9, Gender.Male));
-
-            this.AddAnimalsToZoo(tempList);
         }
 
         /// <summary>
@@ -214,6 +200,59 @@ namespace Zoos
         }
 
         /// <summary>
+        /// Gets or sets the onbirthingroomtemperaturechange delegate.
+        /// </summary>
+        public Action<double, double> OnBirthingRoomTemperatureChange
+        {
+            get
+            {
+                return this.onBirthingRoomTemperatureChange;
+            }
+            set
+            {
+                this.onBirthingRoomTemperatureChange = value;
+            }
+        }
+
+        /// <summary>
+        /// Handles the birthing room temp change.
+        /// </summary>
+        /// <param name="previousTemp">The temp the birthing room was previously.</param>
+        /// <param name="currentTemp">The temp the birthing room is currently.</param>
+        /// <param name="currentTemp"></param>
+        private void HandleBirthingRoomTemperatureChange(double previousTemp, double currentTemp)
+        {
+            if (this.OnBirthingRoomTemperatureChange != null)
+            {
+                this.OnBirthingRoomTemperatureChange(previousTemp, currentTemp);
+            }
+        }
+
+        public Action<Guest> OnAddGuest
+        {
+            get
+            {
+                return this.onAddGuest;
+            }
+            set
+            {
+                this.onAddGuest = value;
+            }
+        }
+
+        public Action<Guest> OnRemoveGuest
+        {
+            get
+            {
+                return this.onRemoveGuest;
+            }
+            set
+            {
+                this.onRemoveGuest = value;
+            }
+        }
+
+        /// <summary>
         /// Creates a new zoo.
         /// </summary>
         /// <returns>A newly created zoo.</returns>
@@ -274,6 +313,10 @@ namespace Zoos
             {
                 ticket.Redeem();
                 this.guests.Add(guest);
+                if (this.OnAddGuest != null)
+                {
+                    this.OnAddGuest(guest);
+                }
             }
         }
 
@@ -452,6 +495,10 @@ namespace Zoos
         public void RemoveGuest(Guest guest)
         {
             this.guests.Remove(guest);
+            if (this.OnRemoveGuest != null)
+            {
+                this.OnRemoveGuest(guest);
+            }
         }
 
         /// <summary>
@@ -570,6 +617,24 @@ namespace Zoos
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Sets the delegate.
+        /// </summary>
+        public void OnDeserialized()
+        {
+            foreach (Guest g in this.Guests)
+            {
+                if (this.OnAddGuest != null)
+                {
+                    this.OnAddGuest(g);
+                }
+            }
+            if (this.OnBirthingRoomTemperatureChange != null)
+            {
+                this.OnBirthingRoomTemperatureChange(this.b168.Temperature, this.b168.Temperature);
+            }
         }
     }
 }

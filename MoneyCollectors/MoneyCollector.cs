@@ -22,12 +22,9 @@ namespace MoneyCollectors
             {
                 return this.moneyBalance;
             }
-
-            set
-            {
-                this.moneyBalance = value;
-            }
         }
+
+        public Action OnBalanceChange { get; set; }
 
         /// <summary>
         /// Adds money to the money collector.
@@ -36,6 +33,7 @@ namespace MoneyCollectors
         public void AddMoney(decimal amount)
         {
             this.moneyBalance += amount;
+            this.OnBalanceChange?.Invoke();
         }
 
         /// <summary>
@@ -48,7 +46,7 @@ namespace MoneyCollectors
             decimal amountRemoved;
 
             // If there is enough money in the wallet...
-            if (this.moneyBalance >= amount)
+            if (this.MoneyBalance >= amount)
             {
                 // Return the requested amount.
                 amountRemoved = amount;
@@ -56,11 +54,12 @@ namespace MoneyCollectors
             else
             {
                 // Return all remaining money.
-                amountRemoved = this.moneyBalance;
+                amountRemoved = this.MoneyBalance;
             }
 
             // Subtract the amount removed from the wallet.
             this.moneyBalance -= amountRemoved;
+            this.OnBalanceChange?.Invoke();
 
             return amountRemoved;
         }

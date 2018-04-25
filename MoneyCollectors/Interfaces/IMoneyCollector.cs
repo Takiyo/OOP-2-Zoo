@@ -1,4 +1,6 @@
-﻿namespace MoneyCollectors
+﻿using System;
+
+namespace MoneyCollectors
 {
     /// <summary>
     /// The interface that defines a contract for all money collectors.
@@ -22,5 +24,7 @@
         /// <param name="amount">The amount to remove.</param>
         /// <returns>The amount removed.</returns>
         decimal RemoveMoney(decimal amount);
+
+        Action OnBalanceChange { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Animals
     /// The class which is used to represent a chimpanzee.
     /// </summary>
     [Serializable]
-    public class Chimpanzee : Mammal, IMoneyCollector
+    public class Chimpanzee : Mammal
     {
         /// <summary>
         /// Initializes a new instance of the Chimpanzee class.

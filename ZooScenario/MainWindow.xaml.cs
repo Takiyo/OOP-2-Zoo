@@ -81,7 +81,7 @@ namespace ZooScenario
         /// <param name="e">The event arguments of the event.</param>
         private void addGuestButton_Click(object sender, RoutedEventArgs e)
         {
-            Guest guest = new Guest("Guest", 0,  0m, WalletColor.Black, Gender.Female, new Account());
+            Guest guest = new Guest("Guest", 0, 0m, WalletColor.Black, Gender.Female, new Account());
 
             GuestWindow window = new GuestWindow(guest);
 
@@ -94,8 +94,6 @@ namespace ZooScenario
                     Ticket ticket = this.comoZoo.SellTicket(guest);
 
                     this.comoZoo.AddGuest(guest, ticket);
-
-                    this.PopulateGuestListBox();
                 }
                 catch (NullReferenceException ex)
                 {
@@ -121,7 +119,6 @@ namespace ZooScenario
 
                 this.comoZoo.AddGuest(guest, ticket);
 
-                this.PopulateGuestListBox();
             }
             catch (NullReferenceException ex)
             {
@@ -130,11 +127,27 @@ namespace ZooScenario
         }
 
         /// <summary>
-        /// Configures the birthing room controls in the main window.
+        /// Attaches the appropriate method(s) to the delegates.
         /// </summary>
-        private void ConfigureBirthingRoomControls()
+        private void AttachDelegates()
         {
-             // Set label's text.
+            this.comoZoo.OnBirthingRoomTemperatureChange += HandleBirthingRoomTemperatureChange;
+
+            this.comoZoo.OnAddGuest += this.HandleGuestAdded;
+            this.comoZoo.OnRemoveGuest += this.HandleGuestRemoved;
+
+            this.comoZoo.OnDeserialized();
+        }
+
+        /// <summary>
+        /// Handles the birthing room temp change.
+        /// </summary>
+        /// <param name="previousTemp">The temp the birthing room was previously.</param>
+        /// <param name="currentTemp">The temp the birthing room is currently.</param>
+        /// <param name="currentTemp"></param>
+        private void HandleBirthingRoomTemperatureChange(double previousTemp, double currentTemp)
+        {
+            // Set label's text.
             this.temperatureLabel.Content = string.Format("{0:0.0} °F", this.comoZoo.BirthingRoomTemperature);
 
             // Size temperature bar.
@@ -150,6 +163,7 @@ namespace ZooScenario
                 Convert.ToByte(255 - colorLevel)));
         }
 
+
         /// <summary>
         /// Decreases the birthing room temperature.
         /// </summary>
@@ -160,7 +174,6 @@ namespace ZooScenario
             try
             {
                 this.comoZoo.BirthingRoomTemperature--;
-                this.ConfigureBirthingRoomControls();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -190,7 +203,6 @@ namespace ZooScenario
                     guest.FeedAnimal(animal, this.comoZoo.AnimalSnackMachine);
 
                     this.PopulateAnimalListBox();
-                    this.PopulateGuestListBox();
                 }
                 else
                 {
@@ -216,7 +228,6 @@ namespace ZooScenario
             try
             {
                 this.comoZoo.BirthingRoomTemperature++;
-                this.ConfigureBirthingRoomControls();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -239,16 +250,6 @@ namespace ZooScenario
         }
 
         /// <summary>
-        /// Populates the window's guest list.
-        /// </summary>
-        private void PopulateGuestListBox()
-        {
-            this.guestListBox.ItemsSource = null;
-
-            this.guestListBox.ItemsSource = this.comoZoo.Guests;
-        }
-
-        /// <summary>
         /// Removes the selected animal from the zoo.
         /// </summary>
         /// <param name="sender">The object that initiated the event.</param>
@@ -262,7 +263,7 @@ namespace ZooScenario
                 {
                     // Removes guest from cage and animal from adopted status.
                     this.comoZoo.FindCage(g.AdoptedAnimal.GetType()).Remove(g);
-                    g.AdoptedAnimal = null;            
+                    g.AdoptedAnimal = null;
                 }
             }
 
@@ -276,7 +277,6 @@ namespace ZooScenario
                     // Remove the selected animal.
                     this.comoZoo.RemoveAnimal(animal);
                     this.PopulateAnimalListBox();
-                    this.PopulateGuestListBox();
                 }
             }
             else
@@ -306,9 +306,6 @@ namespace ZooScenario
                     {
                         this.comoZoo.FindCage(guest.AdoptedAnimal.GetType()).Remove(guest);
                     }
-                    
-
-                    this.PopulateGuestListBox();
                 }
             }
             else
@@ -328,7 +325,7 @@ namespace ZooScenario
             if (animal != null)
             {
                 AnimalWindow window = new AnimalWindow(animal);
-                
+
                 if (window.ShowDialog() == true)
                 {
                     if (animal.IsPregnant == true)
@@ -355,7 +352,6 @@ namespace ZooScenario
 
                 if (window.ShowDialog() == true)
                 {
-                    this.PopulateGuestListBox();
                 }
             }
         }
@@ -368,14 +364,14 @@ namespace ZooScenario
         private void showCageButton_Click(object sender, RoutedEventArgs e)
         {
             Animal animal = this.animalListBox.SelectedItem as Animal;
-            
+
             if (animal != null)
             {
                 CageWindow window = new CageWindow
                     (
                     this.comoZoo.FindCage(animal.GetType())
                     );
-                    
+
                 window.Show();
             }
         }
@@ -392,7 +388,6 @@ namespace ZooScenario
             guest.AdoptedAnimal = animal;
             Cage cage = this.comoZoo.FindCage(animal.GetType());
             cage.Add(guest);
-            this.PopulateGuestListBox();
         }
 
         /// <summary>
@@ -405,7 +400,6 @@ namespace ZooScenario
             Guest guest = this.guestListBox.SelectedItem as Guest;
             this.comoZoo.FindCage(guest.AdoptedAnimal.GetType()).Remove(guest);
             guest.AdoptedAnimal = null;
-            this.PopulateGuestListBox();
         }
 
         /// <summary>
@@ -512,11 +506,11 @@ namespace ZooScenario
             try
             {
                 this.comoZoo = Zoo.LoadFromFile(fileName);
+                this.AttachDelegates();
 
                 SetWindowTitle(fileName);
 
                 this.PopulateAnimalListBox();
-                this.PopulateGuestListBox();
             }
             catch (Exception)
             {
@@ -532,7 +526,7 @@ namespace ZooScenario
         private void ClearWindow()
         {
             animalListBox.ItemsSource = null;
-            guestListBox.ItemsSource = null;
+            guestListBox.Items.Clear();
         }
 
         /// <summary>
@@ -546,7 +540,8 @@ namespace ZooScenario
             if (MessageBox.Show("Are you sure you want to start over?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 this.ClearWindow();
-                Zoo.NewZoo();
+                this.comoZoo = Zoo.NewZoo();
+                this.AttachDelegates();
                 this.SetWindowTitle("Object-Oriented Programming 2: Zoo");
             }
         }
@@ -561,9 +556,9 @@ namespace ZooScenario
             if (LoadZoo(AutoSaveFileName) == false)
             {
                 this.comoZoo = Zoo.NewZoo();
+                this.AttachDelegates();
             }
 
-            this.ConfigureBirthingRoomControls();
 
             try
             {
@@ -571,7 +566,6 @@ namespace ZooScenario
                 this.changeMoveBehaviorComboBox.ItemsSource = Enum.GetValues(typeof(MoveBehaviorType));
 
                 this.PopulateAnimalListBox();
-                this.PopulateGuestListBox();
             }
             catch (NullReferenceException)
             {
@@ -588,6 +582,43 @@ namespace ZooScenario
         private void window_Closing(object sender, CancelEventArgs e)
         {
             this.SaveZoo(AutoSaveFileName);
+        }
+
+        /// <summary>
+        /// Uses delegates to handle guest added.
+        /// </summary>
+        /// <param name="guest">The guest to be handled.</param>
+        private void HandleGuestAdded(Guest guest)
+        {
+            this.guestListBox.Items.Add(guest);
+            guest.OnTextChange += this.UpdateGuestDisplay;
+        }
+
+        /// <summary>
+        /// Uses delegates to handle guest removed.
+        /// </summary>
+        /// <param name="guest">The guest to be handled.</param>
+        private void HandleGuestRemoved(Guest guest)
+        {
+            this.guestListBox.Items.Remove(guest);
+            guest.OnTextChange -= this.UpdateGuestDisplay;
+        }
+
+        /// <summary>
+        /// Uses delegates to update the guest list boxes.
+        /// </summary>
+        /// <param name="guest">The guest to be handled.</param>
+        private void UpdateGuestDisplay(Guest guest)
+        {
+            int index = this.guestListBox.Items.IndexOf(guest);
+            if (index >= 0)
+            { // disconnect the guest 
+                this.guestListBox.Items.RemoveAt(index);
+                // create new guest item in the same spot 
+                this.guestListBox.Items.Insert(index, guest);
+                // re-select the guest 
+                this.guestListBox.SelectedItem = this.guestListBox.Items[index];
+            }
         }
     }
 }

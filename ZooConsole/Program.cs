@@ -29,6 +29,7 @@ namespace ZooConsole
 
             // Create zoo instance.
             Zoo zoo = Zoo.NewZoo();
+            ConsoleHelper.AttachDelegates(zoo);
 
             bool exit = false;
 
@@ -49,6 +50,8 @@ namespace ZooConsole
                             break;
                         case "restart":
                             zoo = Zoo.NewZoo();
+                            ConsoleHelper.AttachDelegates(zoo);
+
                             Console.WriteLine("A new Como Zoo has been created.");
                             break;
                         case "help":

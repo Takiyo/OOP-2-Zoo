@@ -27,8 +27,14 @@ namespace Accounts
             set
             {
                 this.moneyBalance = value;
+                if (this.OnBalanceChange != null)
+                {
+                    this.OnBalanceChange();
+                }
             }
         }
+
+        public Action OnBalanceChange { get; set; }
 
         /// <summary>
         /// Adds money to the money collector.
@@ -36,7 +42,7 @@ namespace Accounts
         /// <param name="amount">The amount of money to add.</param>
         public void AddMoney(decimal amount)
         {
-            this.moneyBalance += amount;
+            this.MoneyBalance += amount;
         }
 
         /// <summary>

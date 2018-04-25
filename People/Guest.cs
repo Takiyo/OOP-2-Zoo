@@ -17,6 +17,9 @@ namespace People
     [Serializable]
     public class Guest : IEater, ICageable
     {
+        [NonSerialized]
+        private Action<Guest> onTextChange;
+
         /// <summary>
         /// The age of the guest.
         /// </summary>
@@ -47,6 +50,8 @@ namespace People
         /// </summary>
         private Wallet wallet;
 
+        private Animal adoptedAnimal;
+
         /// <summary>
         /// Initializes a new instance of the Guest class.
         /// </summary>
@@ -68,6 +73,9 @@ namespace People
             // Add money to wallet.
             this.wallet.AddMoney(moneyBalance);
 
+            this.CheckingAccount.OnBalanceChange += this.HandleBalanceChange;
+            this.Wallet.OnBalanceChange += this.HandleBalanceChange;
+
             this.XPosition = 0;
             this.YPosition = 0;
         }
@@ -75,8 +83,37 @@ namespace People
         /// <summary>
         /// Gets or sets the guest's adopted animal.
         /// </summary>
-        public Animal AdoptedAnimal { get; set; }
+        public Animal AdoptedAnimal
+        {
+            get
+            {
+                return this.adoptedAnimal;
+            }
+            set
+            {
+                this.adoptedAnimal = value;
+                if (this.OnTextChange != null)
+                {
+                    this.OnTextChange(this);
+                }
+            }
+        }
 
+        /// <summary>
+        /// Gets or sets the delegate for onTextChange.
+        /// </summary>
+        public Action<Guest> OnTextChange
+        {
+            get
+            {
+                return this.onTextChange;
+            }
+
+            set
+            {
+                this.onTextChange = value;
+            }
+        }
         /// <summary>
         /// Gets or sets the age of the guest.
         /// </summary>
@@ -95,6 +132,11 @@ namespace People
                 }
 
                 this.age = value;
+
+                if (this.OnTextChange != null)
+                {
+                    this.OnTextChange(this);
+                }
             }
         }
 
@@ -154,6 +196,11 @@ namespace People
                 }
 
                 this.name = value;
+
+                if (this.OnTextChange != null)
+                {
+                    this.OnTextChange(this);
+                }
             }
         }
 
@@ -321,6 +368,17 @@ namespace People
             decimal retrievedAmount = this.checkingAccount.RemoveMoney(amount);
 
             this.wallet.AddMoney(retrievedAmount);
+        }
+
+        /// <summary>
+        /// placeholder
+        /// </summary>
+        private void HandleBalanceChange()
+        {
+            if (this.OnTextChange != null)
+            {
+                this.OnTextChange(this);
+            }
         }
     }
 }

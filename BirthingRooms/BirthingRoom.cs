@@ -52,6 +52,8 @@ namespace BirthingRooms
         /// </summary>
         public Queue<IReproducer> PregnantAnimals { get; private set; }
 
+        public Action<double, double> OnTemperatureChange { get; set; }
+
         /// <summary>
         /// Gets or sets the birthing room's temperature.
         /// </summary>
@@ -75,8 +77,14 @@ namespace BirthingRooms
                 }
                 else
                 {
+                    // Store previous temperature.
+                    double previousTemp = this.temperature;
                     // Set temperature.
                     this.temperature = value;
+                    if (this.OnTemperatureChange != null)
+                    {
+                        this.OnTemperatureChange(previousTemp, this.temperature);
+                    }
                 }
             }
         }
