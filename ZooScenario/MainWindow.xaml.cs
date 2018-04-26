@@ -526,7 +526,7 @@ namespace ZooScenario
         private void ClearWindow()
         {
             animalListBox.ItemsSource = null;
-            guestListBox.Items.Clear();
+            guestListBox.Items.Clear(); // placeholder for animal delegates
         }
 
         /// <summary>

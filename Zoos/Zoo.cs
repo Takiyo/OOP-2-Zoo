@@ -631,6 +631,7 @@ namespace Zoos
                     this.OnAddGuest(g);
                 }
             }
+            //placeholder for animals
             if (this.OnBirthingRoomTemperatureChange != null)
             {
                 this.OnBirthingRoomTemperatureChange(this.b168.Temperature, this.b168.Temperature);

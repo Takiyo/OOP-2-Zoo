@@ -81,10 +81,7 @@ namespace BirthingRooms
                     double previousTemp = this.temperature;
                     // Set temperature.
                     this.temperature = value;
-                    if (this.OnTemperatureChange != null)
-                    {
-                        this.OnTemperatureChange(previousTemp, this.temperature);
-                    }
+                    this.OnTemperatureChange?.Invoke(previousTemp, this.temperature);
                 }
             }
         }
