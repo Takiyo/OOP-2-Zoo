@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
-namespace Utilities
+namespace CagedItems
 {
     /// <summary>
     /// The interface used to represent something cage-able.

@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CagedItems\CagedItems.csproj">
-      <Project>{d37f66da-4874-49c4-9c23-e8e3988d168d}</Project>
+      <Project>{d295e577-b44d-4905-994d-2740ad6a7fb2}</Project>
       <Name>CagedItems</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foods\Foods.csproj">

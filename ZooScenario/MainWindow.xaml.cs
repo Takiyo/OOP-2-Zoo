@@ -13,6 +13,7 @@ using Reproducers;
 using Zoos;
 using System.ComponentModel;
 using Microsoft.Win32;
+using CagedItems;
 
 namespace ZooScenario
 {

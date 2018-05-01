@@ -42,13 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\HorizontalDirection.cs" />
-    <Compile Include="HungerState.cs" />
     <Compile Include="ListUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enumerations\VerticalDirection.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -132,6 +132,10 @@
       <Project>{0115e053-5070-4a75-9566-f3c86b43d03d}</Project>
       <Name>BoothItems</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CagedItems\CagedItems.csproj">
+      <Project>{d295e577-b44d-4905-994d-2740ad6a7fb2}</Project>
+      <Name>CagedItems</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Foods\Foods.csproj">
       <Project>{6a2cf901-3c8d-4a75-a5da-7949cda8765a}</Project>
       <Name>Foods</Name>

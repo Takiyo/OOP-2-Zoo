@@ -8,6 +8,7 @@ using MoneyCollectors;
 using Reproducers;
 using Utilities;
 using VendingMachines;
+using CagedItems;
 
 namespace People
 {
@@ -91,7 +92,18 @@ namespace People
             }
             set
             {
+                if (this.adoptedAnimal != null)
+                {
+                    Delegate.RemoveAll(this.adoptedAnimal.OnHunger, this.adoptedAnimal.OnHunger);
+                }
+
                 this.adoptedAnimal = value;
+
+                if (this.adoptedAnimal != null)
+                {
+                    this.adoptedAnimal.OnHunger += this.HandleAnimalHungry;
+                }
+
                 if (this.OnTextChange != null)
                 {
                     this.OnTextChange(this);
@@ -392,7 +404,7 @@ namespace People
         /// <summary>
         /// Handles the hungry animal.
         /// </summary>
-        public void HandleAnimalHUngry()
+        public void HandleAnimalHungry()
         {
         }
     }

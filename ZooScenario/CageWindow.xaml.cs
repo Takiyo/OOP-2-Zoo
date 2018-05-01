@@ -1,4 +1,5 @@
 ﻿using Animals;
+using CagedItems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,19 @@ namespace ZooScenario
 
                 // Apply the ScaleTransform to the viewbox
                 viewBox.RenderTransform = flipTransform;
+            }
+
+            TransformGroup transformGroup = new TransformGroup();
+
+            if (item.HungerState == HungerState.Unconscious)
+            {
+                SkewTransform unconsciousSkew = new SkewTransform();
+                unconsciousSkew.AngleX = item.XDirection == HorizontalDirection.Left ? 30.0 : -30.0;
+                transformGroup.Children.Add(unconsciousSkew);
+
+                transformGroup.Children.Add(new ScaleTransform(0.75, 0.5));
+
+                viewBox.RenderTransform = transformGroup;
             }
 
             this.cageGrid.Children.Add(viewBox);

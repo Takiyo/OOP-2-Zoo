@@ -40,6 +40,7 @@ namespace Animals
         /// <summary>
         /// The timer that determines when an animal gets hungry.
         /// </summary>
+        [NonSerialized]
         private Timer hungerTimer;
 
         /// <summary>
@@ -330,6 +331,7 @@ namespace Animals
         private void CreateTimers()
         {
             this.hungerTimer = new Timer(random.Next(10, 21) * 1000);
+            this.hungerTimer.Start();
             this.hungerTimer.Elapsed += this.HandleHungerStateChange;
 
             this.moveTimer = new Timer(250);
@@ -447,7 +449,18 @@ namespace Animals
         /// <param name="e"></param>
         private void HandleHungerStateChange(object sender, ElapsedEventArgs e)
         {
-            this.HungerState += 1;
+            switch (this.HungerState)
+            {
+                case HungerState.Satisfied:
+                    this.HungerState = HungerState.Hungry;
+                    break;
+                case HungerState.Hungry:
+                    this.HungerState = HungerState.Starving;
+                    break;
+                case HungerState.Starving:
+                    this.HungerState = HungerState.Unconscious;
+                    break;
+            }
         }
 
         /// <summary>

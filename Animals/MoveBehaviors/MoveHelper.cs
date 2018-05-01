@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utilities;
+using CagedItems;
 
 namespace Animals
 {
@@ -13,6 +14,8 @@ namespace Animals
     [Serializable]
     public static class MoveHelper
     {
+        private static double hungerModifier;
+
         public static void MoveHorizontally(Animal animal, int moveDistance)
         {
             // Checks if it's moving right.
@@ -28,7 +31,8 @@ namespace Animals
                 // If it isn't, the entity moves the set distance unhindered.
                 else
                 {
-                    animal.XPosition += moveDistance;
+                    hungerModifier = CheckHungerState(animal, hungerModifier);
+                    animal.XPosition += (moveDistance * Convert.ToInt32(hungerModifier));
                 }
             }
             // Checks if it's moving left.
@@ -41,7 +45,8 @@ namespace Animals
                 }
                 else
                 {
-                    animal.XPosition -= moveDistance;
+                    hungerModifier = CheckHungerState(animal, hungerModifier);
+                    animal.XPosition -= (moveDistance * Convert.ToInt32(hungerModifier));
                 }
             }
         }
@@ -61,7 +66,8 @@ namespace Animals
                 // If it isn't, the entity moves the set distance unhindered.
                 else
                 {
-                    animal.YPosition += moveDistance;
+                    hungerModifier = CheckHungerState(animal, hungerModifier);
+                    animal.YPosition += (moveDistance * Convert.ToInt32(hungerModifier));
                 }
             }
             // Checks if it's moving down.
@@ -74,11 +80,41 @@ namespace Animals
                 }
                 else
                 {
-                    animal.YPosition -= moveDistance;
+                    hungerModifier = CheckHungerState(animal, hungerModifier);
+                    animal.YPosition -= (moveDistance * Convert.ToInt32(hungerModifier));
                 }
             }
         }
 
+        /// <summary>
+        /// Checks the animal's state of hunger and adjusts movement accordingly.
+        /// </summary>
+        /// <param name="animal">Animal to be checked.</param>
+        /// <param name="movementModifier">Movement modifier based on hunger state.</param>
+        /// <returns>The modifier.</returns>
+        private static double CheckHungerState(Animal animal, double movementModifier)
+        {
+            switch (animal.HungerState)
+            {
+                case HungerState.Satisfied:
+                    movementModifier = 1;
+                    break;
+
+                case HungerState.Hungry:
+                    movementModifier = 0.25;
+                    break;
+
+                case HungerState.Starving:
+                    movementModifier = 0;
+                break;
+
+                case HungerState.Unconscious:
+                    movementModifier = 0;
+                    break;
+            }
+
+            return movementModifier;
+        }
     }
 }
 
