@@ -445,8 +445,8 @@ namespace Animals
         /// <summary>
         /// Handles the hunger state change.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The object that instantiated the event.</param>
+        /// <param name="e">The arguments for the event.</param>
         private void HandleHungerStateChange(object sender, ElapsedEventArgs e)
         {
             switch (this.HungerState)
@@ -460,6 +460,10 @@ namespace Animals
                 case HungerState.Starving:
                     this.HungerState = HungerState.Unconscious;
                     break;
+                case HungerState.Unconscious:
+                    this.OnHunger();
+                    break;
+                    
             }
         }
 

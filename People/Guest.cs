@@ -9,6 +9,8 @@ using Reproducers;
 using Utilities;
 using VendingMachines;
 using CagedItems;
+using System.Timers;
+using System.Runtime.Serialization;
 
 namespace People
 {
@@ -20,6 +22,8 @@ namespace People
     {
         [NonSerialized]
         private Action<Guest> onTextChange;
+
+        private Timer feedTimer;
 
         /// <summary>
         /// The age of the guest.
@@ -79,6 +83,8 @@ namespace People
 
             this.XPosition = 0;
             this.YPosition = 0;
+
+            this.CreateTimers();
         }
 
         /// <summary>
@@ -406,6 +412,35 @@ namespace People
         /// </summary>
         public void HandleAnimalHungry()
         {
+            this.feedTimer.Start();
+        }
+
+        /// <summary>
+        /// Handles when the adopted animal is ready to feed.
+        /// </summary>
+        /// <param name="sender">The object that instantiated the event.</param>
+        /// <param name="e">The arguments for the event.</param>
+        public void HandleReadyToFeed(object sender, ElapsedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates the timers for the guest.
+        /// </summary>
+        private void CreateTimers()
+        {
+            this.feedTimer = new Timer(5000);
+        }
+
+        /// <summary>
+        /// Executes an action when the class is deserialized.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            this.CreateTimers();
         }
     }
 }
