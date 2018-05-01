@@ -6,6 +6,7 @@ using System.Timers;
 using Foods;
 using Reproducers;
 using Utilities;
+using CagedItems;
 
 
 namespace Animals
@@ -27,14 +28,19 @@ namespace Animals
         private int age;
 
         /// <summary>
+        /// An animal's list of children.
+        /// </summary>
+        private List<Animal> children;
+
+        /// <summary>
         /// The gender of the animal.
         /// </summary>
         private Gender gender;
 
         /// <summary>
-        /// An animal's list of children.
+        /// The timer that determines when an animal gets hungry.
         /// </summary>
-        private List<Animal> children;
+        private Timer hungerTimer;
 
         /// <summary>
         /// A value indicating whether or not the animal is pregnant.
@@ -323,6 +329,9 @@ namespace Animals
         /// </summary>
         private void CreateTimers()
         {
+            this.hungerTimer = new Timer(random.Next(10, 21) * 1000);
+            this.hungerTimer.Elapsed += this.HandleHungerStateChange;
+
             this.moveTimer = new Timer(250);
             this.moveTimer.Elapsed += this.MoveHandler;
             this.moveTimer.Start();
@@ -404,7 +413,7 @@ namespace Animals
         }
 
         /// <summary>
-        /// Placeholder~~~
+        /// Handles the animal moving.
         /// </summary>
         /// <param name="sender">The object that initiated the event.</param>
         /// <param name="e">The event arguments of the event.</param>
@@ -421,7 +430,25 @@ namespace Animals
 #endif
         }
 
+        /// <summary>
+        /// Gets or sets the animal's hunger state.
+        /// </summary>
+        public HungerState HungerState { get; set; }
 
+        /// <summary>
+        /// The delegate for executing an action on hunger.
+        /// </summary>
+        public Action OnHunger { get; set; }
+
+        /// <summary>
+        /// Handles the hunger state change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleHungerStateChange(object sender, ElapsedEventArgs e)
+        {
+            this.HungerState += 1;
+        }
 
         /// <summary>
         /// Generates a string representation of the animal.

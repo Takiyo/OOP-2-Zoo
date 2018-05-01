@@ -380,5 +380,20 @@ namespace People
                 this.OnTextChange(this);
             }
         }
+
+        /// <summary>
+        /// The guest's adopted animal's hunger state.
+        /// </summary>
+        public HungerState HungerState
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Handles the hungry animal.
+        /// </summary>
+        public void HandleAnimalHUngry()
+        {
+        }
     }
 }

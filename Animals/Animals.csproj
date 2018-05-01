@@ -83,6 +83,10 @@
     <Compile Include="ReproduceBehaviors\LayEggBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CagedItems\CagedItems.csproj">
+      <Project>{d37f66da-4874-49c4-9c23-e8e3988d168d}</Project>
+      <Name>CagedItems</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Foods\Foods.csproj">
       <Project>{6a2cf901-3c8d-4a75-a5da-7949cda8765a}</Project>
       <Name>Foods</Name>

@@ -41,5 +41,9 @@ namespace Utilities
         /// </summary>
         VerticalDirection YDirection { get; }
 
+        /// <summary>
+        /// The animal's hunger state.
+        /// </summary>
+        HungerState HungerState { get; }
     }
 }
