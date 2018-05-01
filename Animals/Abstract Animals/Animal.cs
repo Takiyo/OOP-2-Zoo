@@ -357,6 +357,9 @@ namespace Animals
         {
             // Increase animal's weight as a result of eating food.
             this.Weight += food.Weight * (this.WeightGainPercentage / 100);
+
+            this.HungerState = HungerState.Satisfied;
+            this.hungerTimer.Start();
         }
 
         /// <summary>
@@ -459,11 +462,9 @@ namespace Animals
                     break;
                 case HungerState.Starving:
                     this.HungerState = HungerState.Unconscious;
-                    break;
-                case HungerState.Unconscious:
+                    this.hungerTimer.Stop();
                     this.OnHunger();
                     break;
-                    
             }
         }
 

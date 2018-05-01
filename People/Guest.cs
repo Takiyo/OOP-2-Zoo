@@ -23,6 +23,7 @@ namespace People
         [NonSerialized]
         private Action<Guest> onTextChange;
 
+        [NonSerialized]
         private Timer feedTimer;
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace People
         /// The checking account for collecting money.
         /// </summary>
         private IMoneyCollector checkingAccount;
-
+         
         /// <summary>
         /// The gender of the guest.
         /// </summary>
@@ -288,8 +289,9 @@ namespace People
         /// </summary>
         /// <param name="eater">The eater to be fed.</param>
         /// <param name="animalSnackMachine">The animal snack machine from which to buy food.</param>
-        public void FeedAnimal(IEater eater, VendingMachine animalSnackMachine)
+        public void FeedAnimal(IEater eater)
         {
+            VendingMachine animalSnackMachine = this.GetVendingMachine();
             // Find food price.
             decimal price = animalSnackMachine.DetermineFoodPrice(eater.Weight);
 
@@ -308,6 +310,11 @@ namespace People
             // Feed animal.
             eater.Eat(food);
         }
+
+        /// <summary>
+        /// Gets or sets the vending machine for the guest.
+        /// </summary>
+        public Func<VendingMachine> GetVendingMachine { get; set; }
 
         /// <summary>
         /// Generates a string representation of the guest.
@@ -422,7 +429,8 @@ namespace People
         /// <param name="e">The arguments for the event.</param>
         public void HandleReadyToFeed(object sender, ElapsedEventArgs e)
         {
-
+            this.FeedAnimal(this.adoptedAnimal);
+            this.feedTimer.Stop();
         }
 
         /// <summary>
@@ -431,6 +439,7 @@ namespace People
         private void CreateTimers()
         {
             this.feedTimer = new Timer(5000);
+            this.feedTimer.Elapsed += this.HandleReadyToFeed;
         }
 
         /// <summary>

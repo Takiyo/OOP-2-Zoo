@@ -201,7 +201,7 @@ namespace ZooScenario
 
                 if (guest != null && animal != null)
                 {
-                    guest.FeedAnimal(animal, this.comoZoo.AnimalSnackMachine);
+                    guest.FeedAnimal(animal);
 
                     this.PopulateAnimalListBox();
                 }

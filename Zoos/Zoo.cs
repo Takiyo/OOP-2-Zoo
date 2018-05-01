@@ -11,6 +11,7 @@ using MoneyCollectors;
 using People;
 using Reproducers;
 using VendingMachines;
+using System.Runtime.Serialization;
 
 namespace Zoos
 {
@@ -228,6 +229,9 @@ namespace Zoos
             }
         }
 
+        /// <summary>
+        /// When the guest is added action.
+        /// </summary>
         public Action<Guest> OnAddGuest
         {
             get
@@ -240,6 +244,9 @@ namespace Zoos
             }
         }
 
+        /// <summary>
+        /// When the guest is removed action.
+        /// </summary>
         public Action<Guest> OnRemoveGuest
         {
             get
@@ -311,8 +318,15 @@ namespace Zoos
             }
             else
             {
+                // Guest has access to vending machine.
+                guest.GetVendingMachine += this.ProvideVendingMachine;
+
+                // Guest's ticket is redeemed.
                 ticket.Redeem();
+
+                // Guest added to zoo.
                 this.guests.Add(guest);
+
                 if (this.OnAddGuest != null)
                 {
                     this.OnAddGuest(guest);
@@ -617,6 +631,15 @@ namespace Zoos
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Provides a vending machine so animals can be fed.
+        /// </summary>
+        /// <returns></returns>
+        private VendingMachine ProvideVendingMachine()
+        {
+            return this.AnimalSnackMachine;
         }
 
         /// <summary>
