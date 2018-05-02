@@ -20,6 +20,8 @@ namespace Zoos
         /// </summary>
         private List<ICageable> cagedItems = new List<ICageable>();
 
+        private Action<ICageable> onImageUpdate;
+
         /// <summary>
         /// Initializes a new instance of the Cage class.
         /// </summary>
@@ -54,12 +56,28 @@ namespace Zoos
         }
 
         /// <summary>
+        /// Gets or sets the action on image update.
+        /// </summary>
+        public Action<ICageable> OnImageUpdate { get; set; }
+
+        /// <summary>
+        /// Handles the image update.
+        /// </summary>
+        /// <param name="item">The item to be handled.</param>
+        private void HandleImageUpdate(ICageable item)
+        {
+            this.OnImageUpdate?.Invoke(item);
+        }
+
+        /// <summary>
         /// Adds animal to cage.
         /// </summary>
         /// <param name="animal">Animal to be added.</param>
         public void Add(ICageable cagedItem)
         {
             this.cagedItems.Add(cagedItem);
+            this.OnImageUpdate += this.HandleImageUpdate;
+            this.OnImageUpdate?.Invoke(cagedItem);
         }
 
         /// <summary>
@@ -69,6 +87,8 @@ namespace Zoos
         public void Remove(ICageable cagedItem)
         {
             this.cagedItems.Remove(cagedItem);
+            this.OnImageUpdate -= this.HandleImageUpdate;
+            this.OnImageUpdate?.Invoke(cagedItem);
         }
 
         /// <summary>

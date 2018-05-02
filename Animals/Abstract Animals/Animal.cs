@@ -17,6 +17,9 @@ namespace Animals
     [Serializable]
     public abstract class Animal : IEater, IMover, IReproducer, ICageable
     {
+        [NonSerialized]
+        private Action<Animal> onTextChange;
+
         /// <summary>
         /// The weight of a newborn baby (as a percentage of the parent's weight).
         /// </summary>
@@ -187,6 +190,22 @@ namespace Animals
         }
 
         /// <summary>
+        /// Gets or sets the animal's active state in regards to the cage.
+        /// </summary>
+        public bool IsActive
+        {
+            get
+            {
+                return this.moveTimer.Enabled;
+            }
+
+            set
+            {
+                this.moveTimer.Enabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether or not the animal is pregnant.
         /// </summary>
         public bool IsPregnant
@@ -215,7 +234,11 @@ namespace Animals
                 }
 
                 this.name = value;
-                // Placeholder - not sure how to call OnTextChange from here.
+
+                if (this.OnTextChange != null)
+                {
+                    this.OnTextChange(this);
+                }
             }
         }
 
@@ -257,6 +280,22 @@ namespace Animals
         public abstract double WeightGainPercentage
         {
             get;
+        }
+
+        /// <summary>
+        /// Gets or sets the delegate for onTextChange.
+        /// </summary>
+        public Action<Animal> OnTextChange
+        {
+            get
+            {
+                return this.onTextChange;
+            }
+
+            set
+            {
+                this.onTextChange = value;
+            }
         }
 
         /// <summary>
@@ -377,6 +416,11 @@ namespace Animals
         public void Move()
         {
             this.MoveBehavior.Move(this);
+
+            if (this.OnImageUpdate != null)
+            {
+                this.OnImageUpdate(this);
+            }
         }
 
         /// <summary>
@@ -393,6 +437,11 @@ namespace Animals
         /// Gets or sets the animal's reproduce behavior.
         /// </summary>
         public IReproduceBehavior ReproduceBehavior { get; set; }
+
+        /// <summary>
+        /// Gets or sets the action on image update.
+        /// </summary>
+        public Action<ICageable> OnImageUpdate { get; set; }
 
         /// <summary>
         /// Creates another reproducer of its own type.
@@ -463,7 +512,12 @@ namespace Animals
                 case HungerState.Starving:
                     this.HungerState = HungerState.Unconscious;
                     this.hungerTimer.Stop();
-                    this.OnHunger();
+
+                    if (this.OnHunger != null)
+                    {
+                        this.OnHunger();
+                    }
+
                     break;
             }
         }

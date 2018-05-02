@@ -46,5 +46,15 @@ namespace CagedItems
         /// The animal's hunger state.
         /// </summary>
         HungerState HungerState { get; }
+
+        /// <summary>
+        /// Gets or sets the action for on image update.
+        /// </summary>
+        Action<ICageable> OnImageUpdate { get; set; }
+
+        /// <summary>
+        /// If the cageable entity is active.
+        /// </summary>
+        bool IsActive { get; }
     }
 }

@@ -26,6 +26,8 @@ namespace People
         [NonSerialized]
         private Timer feedTimer;
 
+        private bool isActive;
+
         /// <summary>
         /// The age of the guest.
         /// </summary>
@@ -274,6 +276,38 @@ namespace People
 
         public VerticalDirection YDirection { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the vending machine for the guest.
+        /// </summary>
+        public Func<VendingMachine> GetVendingMachine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the guest's active state in regards to the cage.
+        /// </summary>
+        public bool IsActive
+        {
+            get
+            {
+                if (this.isActive == true && this.adoptedAnimal != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.isActive;
+                }
+            }
+
+            set
+            {
+                this.isActive = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the action on image update.
+        /// </summary>
+        public Action<ICageable> OnImageUpdate { get; set; }
 
         /// <summary>
         /// Eats the specified food.
@@ -311,10 +345,7 @@ namespace People
             eater.Eat(food);
         }
 
-        /// <summary>
-        /// Gets or sets the vending machine for the guest.
-        /// </summary>
-        public Func<VendingMachine> GetVendingMachine { get; set; }
+
 
         /// <summary>
         /// Generates a string representation of the guest.

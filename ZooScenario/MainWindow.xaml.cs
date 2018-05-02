@@ -596,6 +596,26 @@ namespace ZooScenario
         }
 
         /// <summary>
+        /// Uses delegates to handle guest added.
+        /// </summary>
+        /// <param name="animal">The animal to be handled.</param>
+        private void HandleAnimalAdded(Animal animal)
+        {
+            this.animalListBox.Items.Add(animal);
+            animal.OnTextChange += this.UpdateAnimalDisplay;
+        }
+
+        /// <summary>
+        /// Uses delegates to handle guest removed.
+        /// </summary>
+        /// <param name="guest">The guest to be handled.</param>
+        private void HandleAnimalRemoved(Animal animal)
+        {
+            this.animalListBox.Items.Add(animal);
+            animal.OnTextChange -= this.UpdateAnimalDisplay;
+        }
+
+        /// <summary>
         /// Uses delegates to handle guest removed.
         /// </summary>
         /// <param name="guest">The guest to be handled.</param>
@@ -611,15 +631,41 @@ namespace ZooScenario
         /// <param name="guest">The guest to be handled.</param>
         private void UpdateGuestDisplay(Guest guest)
         {
-            int index = this.guestListBox.Items.IndexOf(guest);
-            if (index >= 0)
-            { // disconnect the guest 
-                this.guestListBox.Items.RemoveAt(index);
-                // create new guest item in the same spot 
-                this.guestListBox.Items.Insert(index, guest);
-                // re-select the guest 
-                this.guestListBox.SelectedItem = this.guestListBox.Items[index];
-            }
+            Dispatcher.Invoke(() =>
+            {
+                int index = this.guestListBox.Items.IndexOf(guest);
+
+                if (index >= 0)
+                { // disconnect the guest 
+                    this.guestListBox.Items.RemoveAt(index);
+                    // create new guest item in the same spot 
+                    this.guestListBox.Items.Insert(index, guest);
+                    // re-select the guest 
+                    this.guestListBox.SelectedItem = this.guestListBox.Items[index];
+                }
+            });
+        }
+
+        /// <summary>
+        /// Uses delegates to update the guest list boxes.
+        /// </summary>
+        /// <param name="guest">The guest to be handled.</param>
+        private void UpdateAnimalDisplay(Animal animal)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                int index = this.animalListBox.Items.IndexOf(animal);
+
+                if (index >= 0)
+                {
+                    //// disconnect the guest
+                    this.animalListBox.Items.RemoveAt(index);
+                    //// create new guest item in the same spot
+                    this.animalListBox.Items.Insert(index, animal);
+                    //// re-select the guest
+                    this.animalListBox.SelectedItem = this.animalListBox.Items[index];
+                }
+            });
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZooScenario"
         mc:Ignorable="d"
-        Title="CageWindow" Height="368.435" Width="344.562" Loaded="cageWindow_Loaded">
+        Title="CageWindow" Height="368.435" Width="344.562" Loaded="cageWindow_Loaded" Closed="cageWindow_Closed">
 
     <Grid x:Name="outerGrid">
         <Viewbox Stretch="Uniform">

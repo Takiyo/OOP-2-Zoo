@@ -280,6 +280,8 @@ namespace Zoos
         /// <param name="animal">The animal to add.</param>
         public void AddAnimal(Animal animal)
         {
+            animal.IsActive = true;
+
             this.animals.Add(animal);
             Cage cage = this.FindCage(animal.GetType());
             cage = cages[animal.GetType()];
@@ -497,6 +499,8 @@ namespace Zoos
         /// <param name="animal">The animal to remove.</param>
         public void RemoveAnimal(Animal animal)
         {
+            animal.IsActive = false;
+
             this.animals.Remove(animal);
             Cage cage = this.FindCage(animal.GetType());
             cage.Remove(animal);
@@ -508,6 +512,8 @@ namespace Zoos
         /// <param name="guest">The guest to remove.</param>
         public void RemoveGuest(Guest guest)
         {
+            guest.IsActive = false;
+
             this.guests.Remove(guest);
             if (this.OnRemoveGuest != null)
             {

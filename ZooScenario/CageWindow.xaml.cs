@@ -29,10 +29,7 @@ namespace ZooScenario
         /// </summary>
         private Cage cage;
 
-        /// <summary>
-        /// Draws the animal on the timer.
-        /// </summary>
-        private Timer redrawTimer;
+
 
         /// <summary>
         /// The window representing a cage.
@@ -44,16 +41,14 @@ namespace ZooScenario
 
             this.cage = cage;
 
-            this.redrawTimer = new Timer(100);
-            this.redrawTimer.Elapsed += this.RedrawHandler;
-            this.redrawTimer.Start();
+            this.cage.OnImageUpdate += this.Update;
         }
 
         /// <summary>
         /// Draws animal on canvas.
         /// </summary>
         /// <param name="animal">The animal to be drawn.</param>
-        private void DrawItem(ICageable item)
+        private void DrawItem(ICageable item, int zIndex)
         {
 
             // Creates and aligns viewbox.
@@ -90,7 +85,9 @@ namespace ZooScenario
                 viewBox.RenderTransform = transformGroup;
             }
 
-            this.cageGrid.Children.Add(viewBox);
+            viewBox.Tag = item;
+
+            this.cageGrid.Children.Insert(zIndex, viewBox);
         }
 
         /// <summary>
@@ -101,10 +98,13 @@ namespace ZooScenario
             // Initially clears the cage.
             this.cageGrid.Children.Clear();
 
+            int zIndex = 0;
+
             // Draws each animal in the enumerable list of animals.
             foreach (ICageable c in cage.CagedItems)
             {
-                this.DrawItem(c);
+                this.DrawItem(c, zIndex);
+                zIndex++;
             }
         }
 
@@ -164,7 +164,7 @@ namespace ZooScenario
         }
 
         /// <summary>
-        /// Placeholder~
+        /// Handles redrawing items in the cage.
         /// </summary>
         /// <param name="sender">The object that initiated the event.</param>
         /// <param name="e">The event arguments of the event.</param>
@@ -180,6 +180,50 @@ namespace ZooScenario
             catch (TaskCanceledException)
             {
             }
+        }
+
+        /// <summary>
+        /// Updates the cage window.
+        /// </summary>
+        /// <param name="item">The item to be updated.</param>
+        public void Update(ICageable item)
+        {
+            try
+            {
+                this.Dispatcher.Invoke(new Action(delegate ()
+                {
+                    int zIndex = 0;
+
+                    foreach (Viewbox v in this.cageGrid.Children)
+                    {
+                        if (v.Tag == item)
+                        {
+                            this.cageGrid.Children.Remove(v);
+                            break;
+                        }
+                    }
+
+                    if (item.IsActive == true)
+                    {
+                        this.DrawItem(item, zIndex);
+                    }
+
+                    zIndex++;
+                }));
+            }
+            catch (TaskCanceledException)
+            {
+            }
+        }
+
+        /// <summary>
+        /// When the cagewindow closes.
+        /// </summary>
+        /// <param name="sender">The object that initiated the event.</param>
+        /// <param name="e">The event arguments of the event.</param>
+        private void cageWindow_Closed(object sender, EventArgs e)
+        {
+            this.cage.OnImageUpdate = null;
         }
     }
 }
