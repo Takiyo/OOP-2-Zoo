@@ -76,8 +76,8 @@ namespace Zoos
         public void Add(ICageable cagedItem)
         {
             this.cagedItems.Add(cagedItem);
-            this.OnImageUpdate += this.HandleImageUpdate;
-            this.OnImageUpdate?.Invoke(cagedItem);
+            cagedItem.OnImageUpdate += this.HandleImageUpdate;
+            cagedItem.OnImageUpdate?.Invoke(cagedItem);
         }
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace Zoos
         public void Remove(ICageable cagedItem)
         {
             this.cagedItems.Remove(cagedItem);
-            this.OnImageUpdate -= this.HandleImageUpdate;
-            this.OnImageUpdate?.Invoke(cagedItem);
+            cagedItem.OnImageUpdate -= this.HandleImageUpdate;
+            cagedItem.OnImageUpdate?.Invoke(cagedItem);
         }
 
         /// <summary>
