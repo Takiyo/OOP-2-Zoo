@@ -395,9 +395,10 @@ namespace Animals
         public virtual void Eat(Food food)
         {
             // Increase animal's weight as a result of eating food.
-            this.Weight += food.Weight * (this.WeightGainPercentage / 100);
+            this.EatBehavior.Eat(this, food);
 
             this.HungerState = HungerState.Satisfied;
+            this.hungerTimer.Stop();
             this.hungerTimer.Start();
         }
 
@@ -417,10 +418,7 @@ namespace Animals
         {
             this.MoveBehavior.Move(this);
 
-            if (this.OnImageUpdate != null)
-            {
-                this.OnImageUpdate(this);
-            }
+            this.OnImageUpdate?.Invoke(this);
         }
 
         /// <summary>

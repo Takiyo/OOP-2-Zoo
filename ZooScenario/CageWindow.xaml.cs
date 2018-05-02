@@ -71,19 +71,21 @@ namespace ZooScenario
                 // Apply the ScaleTransform to the viewbox
                 viewBox.RenderTransform = flipTransform;
             }
-
+            
+            // Create new transform group.
             TransformGroup transformGroup = new TransformGroup();
-
             if (item.HungerState == HungerState.Unconscious)
             {
                 SkewTransform unconsciousSkew = new SkewTransform();
                 unconsciousSkew.AngleX = item.XDirection == HorizontalDirection.Left ? 30.0 : -30.0;
                 transformGroup.Children.Add(unconsciousSkew);
 
-                transformGroup.Children.Add(new ScaleTransform(0.75, 0.5));
-
-                viewBox.RenderTransform = transformGroup;
+                transformGroup.Children.Add(new ScaleTransform(0.75, 0.5));                
             }
+
+            viewBox.RenderTransformOrigin = new Point(0.5, 0.5);
+
+            viewBox.RenderTransform = transformGroup;
 
             viewBox.Tag = item;
 
@@ -203,7 +205,7 @@ namespace ZooScenario
                         }
                     }
 
-                    if (item.IsActive == true)
+                    if (item.IsActive)
                     {
                         this.DrawItem(item, zIndex);
                     }

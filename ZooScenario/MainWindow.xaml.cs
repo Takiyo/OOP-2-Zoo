@@ -631,15 +631,18 @@ namespace ZooScenario
         /// <param name="guest">The guest to be handled.</param>
         private void UpdateGuestDisplay(Guest guest)
         {
-            Dispatcher.Invoke(() =>
-            {
-                int index = this.guestListBox.Items.IndexOf(guest);
+            int index = this.guestListBox.Items.IndexOf(guest);
 
+            Dispatcher.Invoke(() =>
+            {              
                 if (index >= 0)
-                { // disconnect the guest 
+                { 
+                    // disconnect the guest 
                     this.guestListBox.Items.RemoveAt(index);
+
                     // create new guest item in the same spot 
                     this.guestListBox.Items.Insert(index, guest);
+
                     // re-select the guest 
                     this.guestListBox.SelectedItem = this.guestListBox.Items[index];
                 }
@@ -652,10 +655,10 @@ namespace ZooScenario
         /// <param name="guest">The guest to be handled.</param>
         private void UpdateAnimalDisplay(Animal animal)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-                int index = this.animalListBox.Items.IndexOf(animal);
+            int index = this.animalListBox.Items.IndexOf(animal);
 
+            this.Dispatcher.Invoke(() =>
+            {             
                 if (index >= 0)
                 {
                     //// disconnect the guest

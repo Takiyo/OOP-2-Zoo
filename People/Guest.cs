@@ -288,14 +288,7 @@ namespace People
         {
             get
             {
-                if (this.isActive == true && this.adoptedAnimal != null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return this.isActive;
-                }
+                return this.isActive || this.AdoptedAnimal != null;
             }
 
             set
@@ -326,6 +319,7 @@ namespace People
         public void FeedAnimal(IEater eater)
         {
             VendingMachine animalSnackMachine = this.GetVendingMachine();
+
             // Find food price.
             decimal price = animalSnackMachine.DetermineFoodPrice(eater.Weight);
 
@@ -460,7 +454,7 @@ namespace People
         /// <param name="e">The arguments for the event.</param>
         public void HandleReadyToFeed(object sender, ElapsedEventArgs e)
         {
-            this.FeedAnimal(this.adoptedAnimal);
+            this.FeedAnimal(this.AdoptedAnimal);
             this.feedTimer.Stop();
         }
 
