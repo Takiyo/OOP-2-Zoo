@@ -123,6 +123,38 @@ namespace ZooConsole
 
                                 if (commandWords[1] == "animals")
                                 {
+                                    if (commandWords[2] == "binary")
+                                    {
+                                        int loopCounter = 0;
+                                        string name = commandWords[3];
+                                        SortResult animals = zoo.SortAnimals("bubble", "name");
+                                        int minPosition = 0;
+                                        int maxPosition = animals.Objects.Count - 1;
+                                        int middlePosition = 0;
+                                        int compareResult;
+                                        while (minPosition <= maxPosition)
+                                        {
+                                            middlePosition = (minPosition + maxPosition) / 2;
+
+                                            loopCounter++;
+
+                                            compareResult = string.Compare(name, (animals.Objects[middlePosition] as Animal).Name.ToLower());
+
+                                            if (compareResult > 0)
+                                            {
+                                                minPosition = middlePosition + 1;
+                                            }
+                                            else if (compareResult < 0)
+                                            {
+                                                maxPosition = middlePosition - 1;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"{name} found. {loopCounter} loops complete.");
+                                                break;
+                                            }
+                                        }
+                                    }
                                     result = zoo.SortAnimals(commandWords[2], commandWords[3]);
                                     Console.WriteLine($"SORT TYPE: {commandWords[2].ToUpper()}");
                                     Console.WriteLine($"SORT BY: {commandWords[1].ToUpper()}");
@@ -130,14 +162,57 @@ namespace ZooConsole
                                     Console.WriteLine($"SWAP COUNT: {result.SwapCount}");
                                     Console.WriteLine($"COMPARE COUNT: {result.CompareCount}");
                                     Console.WriteLine($"TIME: {result.ElapsedMilliseconds}");
-                                    foreach (Animal a in result.Animals)
+                                    foreach (Object o in result.Objects)
                                     {
-                                        Console.WriteLine(a.ToString());
+                                        Console.WriteLine(o.ToString());
                                     }
                                 }
+
                                 if (commandWords[1] == "guests")
                                 {
+                                    if (commandWords[2] == "binary")
+                                    {
+                                        int loopCounter = 0;
+                                        string name = commandWords[3];
+                                        SortResult guests = zoo.SortGuests("bubble", "name");
+                                        int minPosition = 0;
+                                        int maxPosition = guests.Objects.Count - 1;
+                                        int middlePosition = 0;
+                                        int compareResult;
+                                        while (minPosition <= maxPosition)
+                                        {
+                                            middlePosition = (minPosition + maxPosition) / 2;
+
+                                            loopCounter++;
+
+                                            compareResult = string.Compare(name, (guests.Objects[middlePosition] as Guest).Name.ToLower());
+
+                                            if (compareResult > 0)
+                                            {
+                                                minPosition = middlePosition + 1;
+                                            }
+                                            else if (compareResult < 0)
+                                            {
+                                                maxPosition = middlePosition - 1;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"{name} found. {loopCounter} loops complete.");
+                                                break;
+                                            }
+                                        }
+                                    }
                                     result = zoo.SortGuests(commandWords[2], commandWords[3]);
+                                    Console.WriteLine($"SORT TYPE: {commandWords[2].ToUpper()}");
+                                    Console.WriteLine($"SORT BY: {commandWords[1].ToUpper()}");
+                                    Console.WriteLine($"SORT VALUE: {commandWords[3]}");
+                                    Console.WriteLine($"SWAP COUNT: {result.SwapCount}");
+                                    Console.WriteLine($"COMPARE COUNT: {result.CompareCount}");
+                                    Console.WriteLine($"TIME: {result.ElapsedMilliseconds}");
+                                    foreach (Object o in result.Objects)
+                                    {
+                                        Console.WriteLine(o.ToString());
+                                    }
                                 }
                             }
                             catch (NullReferenceException)
@@ -160,38 +235,7 @@ namespace ZooConsole
                                 }
                             }
 
-                            if (commandWords[1] == "binary")
-                            {
-                                int loopCounter = 0;
-                                string name = commandWords[2];
-                                SortResult animals = zoo.SortAnimals("bubble", "name");
-                                int minPosition = 0;
-                                int maxPosition = animals.Animals.Count - 1;
-                                int middlePosition = 0;
-                                int compareResult;
-                                while (minPosition <= maxPosition)
-                                {
-                                    middlePosition = (minPosition + maxPosition) / 2;
-
-                                    loopCounter++;
-
-                                    compareResult = string.Compare(name, animals.Animals[middlePosition].Name.ToLower());
-
-                                    if (compareResult > 0)
-                                    {
-                                        minPosition = middlePosition + 1;
-                                    }
-                                    else if (compareResult < 0)
-                                    {
-                                        maxPosition = middlePosition - 1;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine($"{name} found. {loopCounter} loops complete.");
-                                        break;
-                                    }
-                                }
-                            }
+                           
                             break;
                         case "save":
                             ConsoleHelper.SaveFile(zoo, commandWords[1]);

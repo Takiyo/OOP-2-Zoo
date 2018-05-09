@@ -52,7 +52,7 @@ namespace Zoos
             stopwatch.Stop();
             SortResult result = new SortResult
             {
-                Objects = list as List<object>,
+                Objects = list.Cast<object>().ToList(),
                 SwapCount = swapCounter,
                 CompareCount = compareCount,
                 ElapsedMilliseconds = stopwatch.ElapsedMilliseconds
@@ -113,7 +113,7 @@ namespace Zoos
             stopwatch.Stop();
             SortResult result = new SortResult
             {
-                Objects = list as List<object>,
+                Objects = list.Cast<object>().ToList(),
                 SwapCount = swapCounter,
                 CompareCount = compareCount,
                 ElapsedMilliseconds = stopwatch.ElapsedMilliseconds
@@ -158,7 +158,7 @@ namespace Zoos
             stopwatch.Stop();
             SortResult result = new SortResult
             {
-                Objects = list as List<object>,
+                Objects = list.Cast<object>().ToList(),
                 SwapCount = swapCounter,
                 CompareCount = compareCount,
                 ElapsedMilliseconds = stopwatch.ElapsedMilliseconds
@@ -270,7 +270,7 @@ namespace Zoos
             stopwatch.Stop();
             SortResult result = new SortResult
             {
-                Objects = list as List<object>,
+                Objects = list.Cast<object>().ToList(),
                 SwapCount = swapCounter,
                 CompareCount = compareCount,
                 ElapsedMilliseconds = stopwatch.ElapsedMilliseconds

@@ -12,6 +12,7 @@ using People;
 using Reproducers;
 using VendingMachines;
 using System.Runtime.Serialization;
+using System.Collections;
 
 namespace Zoos
 {
@@ -595,41 +596,49 @@ namespace Zoos
         /// <param name="sortType">The type of sorting algorithm to be used.</param>
         /// <param name="sortValue">The value to be sorted with.</param>
         /// <returns>A sorted list.</returns>
-        public SortResult SortAnimals(string sortType, string sortValue)
+        private SortResult SortObjects(string sortType, string sortValue, IList list)
         {
             Func<object, object, int> sortFunc;
 
-            if (sortValue == "name")
+            if (sortValue == "animalName")
             {
-                sortFunc = NameSortComparer;
+                sortFunc = AnimalNameSortComparer;
+            }
+            else if (sortValue == "guestName")
+            {
+                sortFunc = GuestNameSortComparer;
             }
             else if (sortValue == "weight")
             {
                 sortFunc = WeightSortComparer;
             }
-            else
+            else if (sortValue == "age")
             {
                 sortFunc = AgeSortComparer;
             }
+            else
+            {
+                sortFunc = MoneyBalanceSortComparer;
+            }
 
-            SortResult result = null;
+            SortResult result = new SortResult();
 
             switch (sortType)
             {
                 case "bubble":
-                        result = SortHelper.BubbleSort(this.animals, sortFunc);
+                        result = SortHelper.BubbleSort(list, sortFunc);
                     break;
                 case "selection":
-                        result = SortHelper.SelectionSort(this.animals, sortFunc);
+                        result = SortHelper.SelectionSort(list, sortFunc);
                     break;
 
                 case "insertion":
-                        result = SortHelper.InsertionSort(this.animals, sortFunc);
+                        result = SortHelper.InsertionSort(list, sortFunc);
                     break;
 
                 case "quick":
                     if (sortValue == "weight")
-                        result = SortHelper.QuickSort(this.animals, 0, this.animals.Count - 1, result, sortFunc);
+                        result = SortHelper.QuickSort(list, 0, list.Count - 1, result, sortFunc);
                     break;
             }
 
@@ -644,22 +653,18 @@ namespace Zoos
         /// <returns>A sorted list.</returns>
         public SortResult SortGuests(string sortType, string sortValue)
         {
-            Func<Animal, Animal, int> sortFunc;
+            return this.SortObjects(sortType, sortValue, this.guests);
+        }
 
-            if (sortValue == "name")
-            {
-                sortFunc = NameSortComparer;
-            }
-            else if (sortValue == "weight")
-            {
-                sortFunc = WeightSortComparer;
-            }
-            else
-            {
-                sortFunc = AgeSortComparer;
-            }
-
-
+        /// <summary>
+        /// Sorts zoo guests.
+        /// </summary>
+        /// <param name="sortType">The type of sorting algorithm to be used.</param>
+        /// <param name="sortValue">The value to be sorted with.</param>
+        /// <returns>A sorted list.</returns>
+        public SortResult SortAnimals(string sortType, string sortValue)
+        {
+            return this.SortObjects(sortType, sortValue, this.animals);
         }
 
         /// <summary>
@@ -715,58 +720,156 @@ namespace Zoos
         }
 
         /// <summary>
-        /// Compares objects by Name.
+        /// Compares animals by name.
         /// </summary>
         /// <param name="object1">First object to be compared.</param>
         /// <param name="object2">Second object to be compared.</param>
         /// <returns>The result of the comparison.</returns>
-        private static int NameSortComparer(Object object1, Object object2)
+        private static int AnimalNameSortComparer(Object object1, Object object2)
         {
-            return string.Compare(object1.Name, object2.Name);
-        }
-
-        /// <summary>
-        /// Compares objects by weight.
-        /// </summary>
-        /// <param name="object1">First object to be compared.</param>
-        /// <param name="object2">Second object to be compared.</param>
-        /// <returns>The result of the comparison.</returns>
-        private static int WeightSortComparer(object object1, object object2)
-        {
-            if (object1.Weight == object2.Weight)
+            if (object1 is Animal)
             {
-                return 0;
-            }
-            else if (object1.Weight > object2.Weight)
-            {
-                return 1;
+                return string.Compare((object1 as Animal).Name, (object2 as Animal).Name);
             }
             else
             {
-                return -1;
+                return 0;
             }
         }
 
+
         /// <summary>
-        /// Compares objects by weight.
+        /// Compares guests by name.
         /// </summary>
         /// <param name="object1">First object to be compared.</param>
         /// <param name="object2">Second object to be compared.</param>
         /// <returns>The result of the comparison.</returns>
-        private static int AgeSortComparer(Animal object1, Animal object2)
+        private static int GuestNameSortComparer(Object object1, Object object2)
         {
-            if (object1.Age == object2.Age)
+            if (object1 is Guest)
             {
-                return 0;
-            }
-            else if (object1.Age > object2.Age)
-            {
-                return 1;
+                return string.Compare((object1 as Guest).Name, (object2 as Guest).Name);
             }
             else
             {
-                return -1;
+                return 0;
             }
         }
+
+            /// <summary>
+            /// Compares objects by weight.
+            /// </summary>
+            /// <param name="object1">First object to be compared.</param>
+            /// <param name="object2">Second object to be compared.</param>
+            /// <returns>The result of the comparison.</returns>
+            private static int WeightSortComparer(Object object1, Object object2)
+        {
+            if (object1 is Animal)
+            {
+                if ((object1 as Animal).Weight == (object2 as Animal).Weight)
+                {
+                    return 0;
+                }
+                else if ((object1 as Animal).Weight > (object2 as Animal).Weight)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            if (object1 is Guest)
+            {
+                if ((object1 as Guest).Weight == (object2 as Guest).Weight)
+                {
+                    return 0;
+                }
+                else if ((object1 as Guest).Weight > (object2 as Guest).Weight)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Compares objects by money balance.
+        /// </summary>
+        /// <param name="object1">First object to be compared.</param>
+        /// <param name="object2">Second object to be compared.</param>
+        /// <returns>The result of the comparison.</returns>
+        private static int MoneyBalanceSortComparer(Object object1, Object object2)
+        {
+            if (object1 is Guest)
+            {
+                if ((object1 as Guest).CheckingAccount.MoneyBalance + (object1 as Guest).Wallet.MoneyBalance
+                    == (object2 as Guest).CheckingAccount.MoneyBalance + (object2 as Guest).Wallet.MoneyBalance)
+                {
+                    return 0;
+                }
+                else if ((object1 as Guest).CheckingAccount.MoneyBalance + (object1 as Guest).Wallet.MoneyBalance
+                    > (object2 as Guest).CheckingAccount.MoneyBalance + (object2 as Guest).Wallet.MoneyBalance)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Compares objects by age.
+        /// </summary>
+        /// <param name="object1">First object to be compared.</param>
+        /// <param name="object2">Second object to be compared.</param>
+        /// <returns>The result of the comparison.</returns>
+        private static int AgeSortComparer(Object object1, Object object2)
+        {
+            if (object1 is Animal)
+            {
+                if ((object1 as Animal).Age == (object2 as Animal).Age)
+                {
+                    return 0;
+                }
+                else if ((object1 as Animal).Age > (object2 as Animal).Age)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            if (object1 is Guest)
+            {
+                if ((object1 as Guest).Age == (object2 as Guest).Age)
+                {
+                    return 0;
+                }
+                else if ((object1 as Guest).Age > (object2 as Guest).Age)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            return 0;
+        }
+
         }
     }
