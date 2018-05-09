@@ -119,18 +119,22 @@ namespace ZooConsole
                         case "sort":
                             try
                             {
-                                SortResult result = zoo.SortAnimals(commandWords[1], commandWords[2]);
+                                SortResult result = new SortResult();
 
-                                Console.WriteLine($"SORT TYPE: {commandWords[1].ToUpper()}");
-                                Console.WriteLine($"SORT BY: {commandWords[2].ToUpper()}");
-                                Console.WriteLine($"SWAP COUNT: {result.SwapCount}");
-                                Console.WriteLine($"COMPARE COUNT: {result.CompareCount}");
-                                Console.WriteLine($"TIME: {result.ElapsedMilliseconds}");
-
-                                foreach (Animal a in result.Animals)
+                                if (commandWords[1] == "animals")
                                 {
-                                    Console.WriteLine(a.ToString());
-                                }
+                                    result = zoo.SortAnimals(commandWords[2], commandWords[3]);
+                                    Console.WriteLine($"SORT TYPE: {commandWords[2].ToUpper()}");
+                                    Console.WriteLine($"SORT BY: {commandWords[1].ToUpper()}");
+                                    Console.WriteLine($"SORT VALUE: {commandWords[3]}");
+                                    Console.WriteLine($"SWAP COUNT: {result.SwapCount}");
+                                    Console.WriteLine($"COMPARE COUNT: {result.CompareCount}");
+                                    Console.WriteLine($"TIME: {result.ElapsedMilliseconds}");
+                                    foreach (Animal a in result.Animals)
+                                    {
+                                        Console.WriteLine(a.ToString());
+                                    }
+                                }    
                             }
                             catch (NullReferenceException)
                             {

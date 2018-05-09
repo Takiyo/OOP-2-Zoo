@@ -118,6 +118,39 @@ namespace Zoos
                 cages.Add(Animal.ConvertAnimalTypeToType(at), cage);
             }
 
+            // Animals for sorting
+            this.AddAnimal(new Chimpanzee("Bobo", 10, 128.2, Gender.Male));
+            this.AddAnimal(new Chimpanzee("Bubbles", 3, 103.8, Gender.Female));
+            this.AddAnimal(new Dingo("Spot", 5, 41.3, Gender.Male));
+            this.AddAnimal(new Dingo("Maggie", 6, 37.2, Gender.Female));
+            this.AddAnimal(new Dingo("Toby", 0, 15.0, Gender.Male));
+            this.AddAnimal(new Eagle("Ari", 12, 10.1, Gender.Female));
+            this.AddAnimal(new Hummingbird("Buzz", 2, 0.02, Gender.Male));
+            this.AddAnimal(new Hummingbird("Bitsy", 1, 0.03, Gender.Female));
+            this.AddAnimal(new Kangaroo("Kanga", 8, 72.0, Gender.Female));
+            this.AddAnimal(new Kangaroo("Roo", 0, 23.9, Gender.Male));
+            this.AddAnimal(new Kangaroo("Jake", 9, 153.5, Gender.Male));
+            this.AddAnimal(new Ostrich("Stretch", 26, 231.7, Gender.Male));
+            this.AddAnimal(new Ostrich("Speedy", 30, 213.0, Gender.Female));
+            this.AddAnimal(new Platypus("Patti", 13, 4.4, Gender.Female));
+            this.AddAnimal(new Platypus("Bill", 11, 4.9, Gender.Male));
+            this.AddAnimal(new Platypus("Ted", 0, 1.1, Gender.Male));
+            this.AddAnimal(new Shark("Bruce", 19, 810.6, Gender.Female));
+            this.AddAnimal(new Shark("Anchor", 17, 458.0, Gender.Male));
+            this.AddAnimal(new Shark("Chum", 14, 377.3, Gender.Male));
+            this.AddAnimal(new Squirrel("Chip", 4, 1.0, Gender.Male));
+            this.AddAnimal(new Squirrel("Dale", 4, 0.9, Gender.Male));
+
+            // Guests for sorting
+            this.AddGuest(new Guest("Greg", 35, 100.0m, WalletColor.Crimson, Gender.Male, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Darla", 7, 10.0m, WalletColor.Brown, Gender.Female, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Anna", 8, 12.56m, WalletColor.Brown, Gender.Female, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Matthew", 42, 10.0m, WalletColor.Brown, Gender.Male, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Doug", 7, 11.10m, WalletColor.Brown, Gender.Male, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Jared", 17, 31.70m, WalletColor.Brown, Gender.Male, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Sean", 34, 20.50m, WalletColor.Brown, Gender.Male, new Account()), new Ticket(0m, 0, 0));
+            this.AddGuest(new Guest("Sally", 52, 134.20m, WalletColor.Brown, Gender.Female, new Account()), new Ticket(0m, 0, 0));
+
         }
 
         /// <summary>
@@ -664,6 +697,39 @@ namespace Zoos
             if (this.OnBirthingRoomTemperatureChange != null)
             {
                 this.OnBirthingRoomTemperatureChange(this.b168.Temperature, this.b168.Temperature);
+            }
+        }
+
+        /// <summary>
+        /// placeholder
+        /// </summary>
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        /// <returns></returns>
+        private static int NameSortComparer(Animal object1, Animal object2)
+        {
+            return string.Compare(object1.Name, object2.Name);
+        }
+
+        /// <summary>
+        /// placeholder
+        /// </summary>
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        /// <returns></returns>
+        private static int WeightSortComparer(Animal object1, Animal object2)
+        {
+            if (object1.Weight == object2.Weight)
+            {
+                return 0;
+            }
+            else if (object1.Weight > object2.Weight)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
             }
         }
     }

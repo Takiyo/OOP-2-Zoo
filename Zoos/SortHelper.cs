@@ -19,7 +19,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">The list of animals to be sorted through.</param>
         /// <returns>The sorted list.</returns>
-        public static SortResult BubbleSortByName(List<Animal> animals)
+        public static SortResult BubbleSortByName(List<Animal> animals, Func<Animal, Animal, int> comparer)
         {
             // initialize a swap counter variable and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -68,7 +68,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">The list of animals to be sorted through.</param>
         /// <returns>The sorted list.</returns>
-        public static SortResult BubbleSortByWeight(List<Animal> animals)
+        public static SortResult BubbleSortByWeight(List<Animal> animals, Func<Animal, Animal, int> comparer)
         {
             // initialize a swap counter variable and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -115,7 +115,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">The list to be sorted through.</param>
         /// <returns>The resulting sort.</returns>
-        public static SortResult SelectionSortByName(List<Animal> animals)
+        public static SortResult SelectionSortByName(List<Animal> animals, Func<Animal, Animal, int> comparer)
         {
             // initialize a swap counter variable, smallest weight found, and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -176,7 +176,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">The list to be sorted through.</param>
         /// <returns>The resulting sort.</returns>
-        public static SortResult SelectionSortByWeight(List<Animal> animals)
+        public static SortResult SelectionSortByWeight(List<Animal> animals, Func<Animal, Animal, int> comparer)
         {
             // initialize a swap counter variable, smallest weight found, and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -236,7 +236,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">List to be sorted.</param>
         /// <returns>The resulting sort.</returns>
-        public static SortResult InsertionSortByName(List<Animal> animals)
+        public static SortResult InsertionSortByName(List<Animal> animals, Func<Animal, Animal, int> comparer)
         {
             // initialize a swap counter variable and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -278,7 +278,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">List to be sorted.</param>
         /// <returns>The resulting sort.</returns>
-        public static SortResult InsertionSortByWeight(List<Animal> animals)
+        public static SortResult InsertionSortByWeight(List<Animal> animals, Func<Animal, Animal, int> comparer)
         {
             // initialize a swap counter variable and stopwatch
             Stopwatch stopwatch = new Stopwatch();
