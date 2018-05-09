@@ -594,58 +594,72 @@ namespace Zoos
         /// </summary>
         /// <param name="sortType">The type of sorting algorithm to be used.</param>
         /// <param name="sortValue">The value to be sorted with.</param>
-        /// <returns></returns>
+        /// <returns>A sorted list.</returns>
         public SortResult SortAnimals(string sortType, string sortValue)
         {
+            Func<object, object, int> sortFunc;
+
+            if (sortValue == "name")
+            {
+                sortFunc = NameSortComparer;
+            }
+            else if (sortValue == "weight")
+            {
+                sortFunc = WeightSortComparer;
+            }
+            else
+            {
+                sortFunc = AgeSortComparer;
+            }
+
             SortResult result = null;
 
             switch (sortType)
             {
                 case "bubble":
-                    if (sortValue == "weight")
-                    {
-                        result = SortHelper.BubbleSortByWeight(this.animals);
-                    }
-                    if (sortValue == "name")
-                    {
-                        result = SortHelper.BubbleSortByName(this.animals);
-                    }
+                        result = SortHelper.BubbleSort(this.animals, sortFunc);
                     break;
                 case "selection":
-                    if (sortValue == "weight")
-                    {
-                        result = SortHelper.SelectionSortByWeight(this.animals);
-                    }
-                    if (sortValue == "name")
-                    {
-                        result = SortHelper.SelectionSortByName(this.animals);
-                    }
+                        result = SortHelper.SelectionSort(this.animals, sortFunc);
                     break;
 
                 case "insertion":
-                    if (sortValue == "weight")
-                    {
-                        result = SortHelper.InsertionSortByWeight(this.animals);
-                    }
-                    if (sortValue == "name")
-                    {
-                        result = SortHelper.InsertionSortByName(this.animals);
-                    }
+                        result = SortHelper.InsertionSort(this.animals, sortFunc);
                     break;
 
                 case "quick":
                     if (sortValue == "weight")
-                    {
-                        result = SortHelper.QuickSortByWeight(this.animals, 0, this.animals.Count - 1, result);
-                    }
-                    if (sortValue == "name")
-                    {
-                        result = SortHelper.QuickSortByName(this.animals, 0, this.animals.Count - 1, result);
-                    }
+                        result = SortHelper.QuickSort(this.animals, 0, this.animals.Count - 1, result, sortFunc);
                     break;
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Sorts zoo guests.
+        /// </summary>
+        /// <param name="sortType">The type of sorting algorithm to be used.</param>
+        /// <param name="sortValue">The value to be sorted with.</param>
+        /// <returns>A sorted list.</returns>
+        public SortResult SortGuests(string sortType, string sortValue)
+        {
+            Func<Animal, Animal, int> sortFunc;
+
+            if (sortValue == "name")
+            {
+                sortFunc = NameSortComparer;
+            }
+            else if (sortValue == "weight")
+            {
+                sortFunc = WeightSortComparer;
+            }
+            else
+            {
+                sortFunc = AgeSortComparer;
+            }
+
+
         }
 
         /// <summary>
@@ -701,23 +715,23 @@ namespace Zoos
         }
 
         /// <summary>
-        /// placeholder
+        /// Compares objects by Name.
         /// </summary>
-        /// <param name="object1"></param>
-        /// <param name="object2"></param>
-        /// <returns></returns>
-        private static int NameSortComparer(Animal object1, Animal object2)
+        /// <param name="object1">First object to be compared.</param>
+        /// <param name="object2">Second object to be compared.</param>
+        /// <returns>The result of the comparison.</returns>
+        private static int NameSortComparer(Object object1, Object object2)
         {
             return string.Compare(object1.Name, object2.Name);
         }
 
         /// <summary>
-        /// placeholder
+        /// Compares objects by weight.
         /// </summary>
-        /// <param name="object1"></param>
-        /// <param name="object2"></param>
-        /// <returns></returns>
-        private static int WeightSortComparer(Animal object1, Animal object2)
+        /// <param name="object1">First object to be compared.</param>
+        /// <param name="object2">Second object to be compared.</param>
+        /// <returns>The result of the comparison.</returns>
+        private static int WeightSortComparer(object object1, object object2)
         {
             if (object1.Weight == object2.Weight)
             {
@@ -732,5 +746,27 @@ namespace Zoos
                 return -1;
             }
         }
+
+        /// <summary>
+        /// Compares objects by weight.
+        /// </summary>
+        /// <param name="object1">First object to be compared.</param>
+        /// <param name="object2">Second object to be compared.</param>
+        /// <returns>The result of the comparison.</returns>
+        private static int AgeSortComparer(Animal object1, Animal object2)
+        {
+            if (object1.Age == object2.Age)
+            {
+                return 0;
+            }
+            else if (object1.Age > object2.Age)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        }
     }
-}

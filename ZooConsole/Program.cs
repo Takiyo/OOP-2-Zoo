@@ -134,7 +134,11 @@ namespace ZooConsole
                                     {
                                         Console.WriteLine(a.ToString());
                                     }
-                                }    
+                                }
+                                if (commandWords[1] == "guests")
+                                {
+                                    result = zoo.SortGuests(commandWords[2], commandWords[3]);
+                                }
                             }
                             catch (NullReferenceException)
                             {

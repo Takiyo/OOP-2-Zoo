@@ -16,7 +16,7 @@ namespace Zoos
         /// <summary>
         /// Gets or sets the list of animals to be sorted.
         /// </summary>
-        public List<Animal> Animals { get; set; }
+        public List<object> Objects { get; set; }
 
         /// <summary>
         /// Gets or sets the compare count of the sort results.
