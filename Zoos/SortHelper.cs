@@ -176,10 +176,10 @@ namespace Zoos
         /// <param name="index2">The next index.</param>
         private static void Swap(IList list, int index1, int index2)
         {
-            IList placeholderList;
-            placeholderList = list[index1] as List<object>;
+            Object o;
+            o = list[index1];
             list[index1] = list[index2];
-            list[index2] = placeholderList;
+            list[index2] = o;
         }
 
         /// <summary>

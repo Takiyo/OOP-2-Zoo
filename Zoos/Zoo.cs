@@ -600,11 +600,11 @@ namespace Zoos
         {
             Func<object, object, int> sortFunc;
 
-            if (sortValue == "animalName")
+            if (sortValue == "animalname")
             {
                 sortFunc = AnimalNameSortComparer;
             }
-            else if (sortValue == "guestName")
+            else if (sortValue == "guestname")
             {
                 sortFunc = GuestNameSortComparer;
             }
