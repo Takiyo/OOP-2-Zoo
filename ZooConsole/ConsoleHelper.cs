@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Accounts;
 using Animals;
 using BoothItems;
@@ -154,7 +155,7 @@ namespace ZooConsole
         /// <param name="name">The name of the animal to show.</param>
         private static void ShowAnimal(Zoo zoo, string name)
         {
-            Animal animal = zoo.FindAnimal(name);
+            Animal animal = zoo.FindAnimal(a => a.Name == name);
 
             if (animal != null)
             {
@@ -173,7 +174,7 @@ namespace ZooConsole
         /// <param name="name">The name of the animal's children being shown.</param>
         private static void ShowChildren(Zoo zoo, string name)
         {
-            Animal animal = zoo.FindAnimal(name);
+            Animal animal = zoo.FindAnimal(a => a.Name == name);
             ConsoleHelper.WalkTree(animal, "");
         }
 
@@ -184,7 +185,7 @@ namespace ZooConsole
         /// <param name="name">The name of the guest to show.</param>
         private static void ShowGuest(Zoo zoo, string name)
         {
-            Guest guest = zoo.FindGuest(name);
+            Guest guest = zoo.FindGuest(g => g.Name == name);
 
             if (guest != null)
             {
@@ -258,7 +259,7 @@ namespace ZooConsole
         /// <param name="name">The name of the animal to remove.</param>
         private static void RemoveAnimal(Zoo zoo, string name)
         {
-            Animal animalToRemove = zoo.FindAnimal(name);
+            Animal animalToRemove = zoo.FindAnimal(a => a.Name == name);
 
             try
             {
@@ -278,7 +279,7 @@ namespace ZooConsole
         /// <param name="name">The name of the guest to remove.</param>
         private static void RemoveGuest(Zoo zoo, string name)
         {
-            Guest guestToRemove = zoo.FindGuest(name);
+            Guest guestToRemove = zoo.FindGuest(a => a.Name == name);
 
             try
             {
@@ -462,7 +463,7 @@ namespace ZooConsole
         /// <param name="animalName">The animal in the cage.</param>
         private static void ShowCage(Zoo zoo, string animalName)
         {
-            Animal animal = zoo.FindAnimal(animalName);
+            Animal animal = zoo.FindAnimal(a => a.Name == animalName);
 
             if (animal != null)
             {
@@ -511,6 +512,32 @@ namespace ZooConsole
         {
             Console.WriteLine($"Previous temperature: {previousTemp}");
             Console.WriteLine($"Current temperature: {currentTemp}");
+        }
+
+        /// <summary>
+        /// Acts on queries from the console.
+        /// </summary>
+        /// <param name="zoo">The zoo the be used.</param>
+        /// <param name="query">The query to be used.</param>
+        public static string QueryHelper(Zoo zoo, string query)
+        {
+            List<Animal> animals;
+            string q;
+
+            switch (query)
+            {
+                case "totalanimalweight":
+                    return $"Total animal weight {zoo.Animals.ToList().Sum(a => a.Weight)}";        
+                case "averageanimalweight":
+                    return $"Average animal weight: {zoo.Animals.ToList().Average(a => a.Weight)}";
+                case "animalcount":
+                    return $"Total animal count: {zoo.Animals.ToList().Count()}";
+                case "firstheavyanimal":
+                    zoo.Animals.ToList().ForEach(a => a.Weight);
+                    break;
+            }
+
+            return "";
         }
     }
 }

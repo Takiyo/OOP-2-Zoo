@@ -233,9 +233,12 @@ namespace ZooConsole
                                         Console.WriteLine($"{name} found. {loopCounter} loops complete.");
                                     }
                                 }
-                            }
+                            }                      
+                            break;
 
-                           
+                        case "query":
+                            ConsoleHelper.QueryHelper(zoo, commandWords[1]);
+
                             break;
                         case "save":
                             ConsoleHelper.SaveFile(zoo, commandWords[1]);

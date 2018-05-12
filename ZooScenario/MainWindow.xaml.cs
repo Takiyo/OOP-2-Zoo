@@ -131,39 +131,52 @@ namespace ZooScenario
         /// Attaches the appropriate method(s) to the delegates.
         /// </summary>
         private void AttachDelegates()
-        {
-            this.comoZoo.OnBirthingRoomTemperatureChange += HandleBirthingRoomTemperatureChange;
 
-            this.comoZoo.OnAddGuest += this.HandleGuestAdded;
-            this.comoZoo.OnRemoveGuest += this.HandleGuestRemoved;
+        {
+            this.comoZoo.OnBirthingRoomTemperatureChange = (previousTemp, currentTemp) =>
+            {
+                // Set label's text.
+                this.temperatureLabel.Content = string.Format("{0:0.0} °F", this.comoZoo.BirthingRoomTemperature);
+
+                // Size temperature bar.
+                this.temperatureBorder.Height = this.comoZoo.BirthingRoomTemperature * 2;
+
+                // Calculate temperature bar's color level (from 0 to 255).
+                double colorLevel = ((this.comoZoo.BirthingRoomTemperature - BirthingRoom.MinTemperature) * 255) / (BirthingRoom.MaxTemperature - BirthingRoom.MinTemperature);
+
+                // Set temperature bar's color based upon the color level (red is directly proportional to color level; green and blue are inversely proportional).
+                this.temperatureBorder.Background = new SolidColorBrush(Color.FromRgb(
+                    Convert.ToByte(colorLevel),
+                    Convert.ToByte(255 - colorLevel),
+                    Convert.ToByte(255 - colorLevel)));
+            };
+
+            this.comoZoo.OnAddGuest = guest =>
+            {
+                this.guestListBox.Items.Add(guest);
+                guest.OnTextChange += this.UpdateGuestDisplay;
+            };
+
+            this.comoZoo.OnRemoveGuest = guest =>
+            {
+                this.guestListBox.Items.Remove(guest);
+                guest.OnTextChange -= this.UpdateGuestDisplay;
+            };
+
+            this.comoZoo.OnAddAnimal = animal =>
+            {
+                this.animalListBox.Items.Add(animal);
+                animal.OnTextChange += this.UpdateAnimalDisplay;
+            };
+
+            this.comoZoo.OnRemoveAnimal = animal =>
+            {
+                this.animalListBox.Items.Add(animal);
+                animal.OnTextChange -= this.UpdateAnimalDisplay;
+            };
 
             this.comoZoo.OnDeserialized();
         }
-
-        /// <summary>
-        /// Handles the birthing room temp change.
-        /// </summary>
-        /// <param name="previousTemp">The temp the birthing room was previously.</param>
-        /// <param name="currentTemp">The temp the birthing room is currently.</param>
-        /// <param name="currentTemp"></param>
-        private void HandleBirthingRoomTemperatureChange(double previousTemp, double currentTemp)
-        {
-            // Set label's text.
-            this.temperatureLabel.Content = string.Format("{0:0.0} °F", this.comoZoo.BirthingRoomTemperature);
-
-            // Size temperature bar.
-            this.temperatureBorder.Height = this.comoZoo.BirthingRoomTemperature * 2;
-
-            // Calculate temperature bar's color level (from 0 to 255).
-            double colorLevel = ((this.comoZoo.BirthingRoomTemperature - BirthingRoom.MinTemperature) * 255) / (BirthingRoom.MaxTemperature - BirthingRoom.MinTemperature);
-
-            // Set temperature bar's color based upon the color level (red is directly proportional to color level; green and blue are inversely proportional).
-            this.temperatureBorder.Background = new SolidColorBrush(Color.FromRgb(
-                Convert.ToByte(colorLevel),
-                Convert.ToByte(255 - colorLevel),
-                Convert.ToByte(255 - colorLevel)));
-        }
-
 
         /// <summary>
         /// Decreases the birthing room temperature.
@@ -384,7 +397,7 @@ namespace ZooScenario
         /// <param name="e">The event arguments of the event.</param>
         private void adoptAnimalButton_Click(object sender, RoutedEventArgs e)
         {
-            Guest guest = this.guestListBox.SelectedItem as Guest;
+            Guest guest = this.comoZoo.FindGuest(g => g.AdoptedAnimal != null);
             Animal animal = this.animalListBox.SelectedItem as Animal;
             guest.AdoptedAnimal = animal;
             Cage cage = this.comoZoo.FindCage(animal.GetType());
@@ -583,46 +596,6 @@ namespace ZooScenario
         private void window_Closing(object sender, CancelEventArgs e)
         {
             this.SaveZoo(AutoSaveFileName);
-        }
-
-        /// <summary>
-        /// Uses delegates to handle guest added.
-        /// </summary>
-        /// <param name="guest">The guest to be handled.</param>
-        private void HandleGuestAdded(Guest guest)
-        {
-            this.guestListBox.Items.Add(guest);
-            guest.OnTextChange += this.UpdateGuestDisplay;
-        }
-
-        /// <summary>
-        /// Uses delegates to handle guest added.
-        /// </summary>
-        /// <param name="animal">The animal to be handled.</param>
-        private void HandleAnimalAdded(Animal animal)
-        {
-            this.animalListBox.Items.Add(animal);
-            animal.OnTextChange += this.UpdateAnimalDisplay;
-        }
-
-        /// <summary>
-        /// Uses delegates to handle guest removed.
-        /// </summary>
-        /// <param name="guest">The guest to be handled.</param>
-        private void HandleAnimalRemoved(Animal animal)
-        {
-            this.animalListBox.Items.Add(animal);
-            animal.OnTextChange -= this.UpdateAnimalDisplay;
-        }
-
-        /// <summary>
-        /// Uses delegates to handle guest removed.
-        /// </summary>
-        /// <param name="guest">The guest to be handled.</param>
-        private void HandleGuestRemoved(Guest guest)
-        {
-            this.guestListBox.Items.Remove(guest);
-            guest.OnTextChange -= this.UpdateGuestDisplay;
         }
 
         /// <summary>

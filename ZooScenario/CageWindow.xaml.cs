@@ -41,7 +41,35 @@ namespace ZooScenario
 
             this.cage = cage;
 
-            this.cage.OnImageUpdate += this.Update;
+            this.cage.OnImageUpdate = item =>
+            {
+                try
+                {
+                    this.Dispatcher.Invoke(new Action(delegate ()
+                    {
+                        int zIndex = 0;
+
+                        foreach (Viewbox v in this.cageGrid.Children)
+                        {
+                            if (v.Tag == item)
+                            {
+                                this.cageGrid.Children.Remove(v);
+                                break;
+                            }
+                        }
+
+                        if (item.IsActive)
+                        {
+                            this.DrawItem(item, zIndex);
+                        }
+
+                        zIndex++;
+                    }));
+                }
+                catch (TaskCanceledException)
+                {
+                }
+            };
         }
 
         /// <summary>
@@ -103,11 +131,7 @@ namespace ZooScenario
             int zIndex = 0;
 
             // Draws each animal in the enumerable list of animals.
-            foreach (ICageable c in cage.CagedItems)
-            {
-                this.DrawItem(c, zIndex);
-                zIndex++;
-            }
+            cage.CagedItems.ToList().ForEach(c => this.DrawItem(c, zIndex++));
         }
 
         /// <summary>
@@ -177,40 +201,6 @@ namespace ZooScenario
                 this.Dispatcher.Invoke(new Action(delegate ()
                 {
                     this.DrawAllItems();
-                }));
-            }
-            catch (TaskCanceledException)
-            {
-            }
-        }
-
-        /// <summary>
-        /// Updates the cage window.
-        /// </summary>
-        /// <param name="item">The item to be updated.</param>
-        public void Update(ICageable item)
-        {
-            try
-            {
-                this.Dispatcher.Invoke(new Action(delegate ()
-                {
-                    int zIndex = 0;
-
-                    foreach (Viewbox v in this.cageGrid.Children)
-                    {
-                        if (v.Tag == item)
-                        {
-                            this.cageGrid.Children.Remove(v);
-                            break;
-                        }
-                    }
-
-                    if (item.IsActive)
-                    {
-                        this.DrawItem(item, zIndex);
-                    }
-
-                    zIndex++;
                 }));
             }
             catch (TaskCanceledException)

@@ -20,6 +20,9 @@ namespace Animals
         [NonSerialized]
         private Action<Animal> onTextChange;
 
+        [NonSerialized]
+        public Action<IReproducer> OnPregnant;
+
         /// <summary>
         /// The weight of a newborn baby (as a percentage of the parent's weight).
         /// </summary>
@@ -408,6 +411,7 @@ namespace Animals
         public void MakePregnant()
         {
             this.isPregnant = true;
+            this.OnPregnant(this);
             this.MoveBehavior = new NoMoveBehavior();
         }
 

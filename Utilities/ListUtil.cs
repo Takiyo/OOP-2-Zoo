@@ -22,10 +22,8 @@ namespace Utilities
         {
             string result = null;
 
-            foreach (object s in list)
-            {
-                result += result == null ? s : separator + s;
-            }
+            list.ToList().ForEach(s => result += result == null ? s : separator + s);
+
             return result;
         }
     }

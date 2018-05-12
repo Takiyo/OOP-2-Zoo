@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Animals;
 using People;
@@ -253,10 +254,8 @@ namespace ZooConsole
             {
                 Console.WriteLine($"Usage: {command} {ListUtil.Flatten(arguments.Keys, " ")}");
                 Console.WriteLine("Parameters:");
-                foreach (KeyValuePair<string, string> kvp in arguments)
-                {
-                    Console.WriteLine(kvp.Key + ": " + kvp.Value);
-                }
+
+                arguments.ToList().ForEach(kvp => Console.WriteLine(kvp.Key + ": " + kvp.Value));
             }
         }
 

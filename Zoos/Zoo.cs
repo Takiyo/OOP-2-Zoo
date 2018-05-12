@@ -31,6 +31,12 @@ namespace Zoos
         [NonSerialized]
         private Action<Guest> onRemoveGuest;
 
+        [NonSerialized]
+        private Action<Animal> onAddAnimal;
+
+        [NonSerialized]
+        private Action<Animal> onRemoveAnimal;
+
         /// <summary>
         /// A list of all animals currently residing within the zoo.
         /// </summary>
@@ -103,7 +109,15 @@ namespace Zoos
             this.animals = new List<Animal>();
             this.animalSnackMachine = new VendingMachine(animalFoodPrice, new Account());
             this.b168 = new BirthingRoom(vet);
-            this.b168.OnTemperatureChange += this.HandleBirthingRoomTemperatureChange;
+
+            this.b168.OnTemperatureChange = (previousTemp, currentTemp) =>
+            {
+                if (this.OnBirthingRoomTemperatureChange != null)
+                {
+                    this.OnBirthingRoomTemperatureChange(previousTemp, currentTemp);
+                }
+            };
+
             this.capacity = capacity;
             this.guests = new List<Guest>();
             this.informationBooth = new GivingBooth(attendant);
@@ -250,20 +264,6 @@ namespace Zoos
         }
 
         /// <summary>
-        /// Handles the birthing room temp change.
-        /// </summary>
-        /// <param name="previousTemp">The temp the birthing room was previously.</param>
-        /// <param name="currentTemp">The temp the birthing room is currently.</param>
-        /// <param name="currentTemp"></param>
-        private void HandleBirthingRoomTemperatureChange(double previousTemp, double currentTemp)
-        {
-            if (this.OnBirthingRoomTemperatureChange != null)
-            {
-                this.OnBirthingRoomTemperatureChange(previousTemp, currentTemp);
-            }
-        }
-
-        /// <summary>
         /// When the guest is added action.
         /// </summary>
         public Action<Guest> OnAddGuest
@@ -294,6 +294,36 @@ namespace Zoos
         }
 
         /// <summary>
+        /// Gets or gets the action for adding an animal.
+        /// </summary>
+        public Action<Animal> OnAddAnimal
+        {
+            get
+            {
+                return this.onAddAnimal;
+            }
+            set
+            {
+                this.onAddAnimal = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or gets the action for removing an animal.
+        /// </summary>
+        public Action<Animal> OnRemoveAnimal
+        {
+            get
+            {
+                return this.onRemoveAnimal;
+            }
+            set
+            {
+                this.onRemoveAnimal = value;
+            }
+        }
+
+        /// <summary>
         /// Creates a new zoo.
         /// </summary>
         /// <returns>A newly created zoo.</returns>
@@ -314,6 +344,8 @@ namespace Zoos
         /// <param name="animal">The animal to add.</param>
         public void AddAnimal(Animal animal)
         {
+            animal.OnPregnant = a => this.b168.PregnantAnimals.Enqueue(a);
+
             animal.IsActive = true;
 
             this.animals.Add(animal);
@@ -392,79 +424,11 @@ namespace Zoos
         /// </summary>
         /// <param name="type">The type of the animal to find.</param>
         /// <returns>The first matching animal.</returns>
-        public Animal FindAnimal(Type type)
+        public Animal FindAnimal(Predicate<Animal> match)
         {
-            Animal animal = null;
-
-            // Loop through the zoo's list of animals.
-            foreach (Animal a in this.animals)
-            {
-                // If the type matches...
-                if (a.GetType() == type)
-                {
-                    // Get the matching animal.
-                    animal = a;
-
-                    break;
-                }
-            }
-
-            return animal;
+            return this.animals.Find(match);
         }
 
-        /// <summary>
-        /// Finds an animal based on type and pregnancy status.
-        /// </summary>
-        /// <param name="type">The type of the animal to find.</param>
-        /// <param name="isPregnant">The pregnancy status of the animal to find.</param>
-        /// <returns>The first matching animal.</returns>
-        public Animal FindAnimal(Type type, bool isPregnant)
-        {
-            Animal animal = null;
-
-            // Loop through the zoo's list of animals.
-            foreach (Animal a in this.animals)
-            {
-                // If the type and pregnancy status match...
-                if (a.GetType() == type && a.IsPregnant == isPregnant)
-                {
-                    // Get the matching animal.
-                    animal = a;
-
-                    break;
-                }
-            }
-
-            return animal;
-        }
-
-        /// <summary>
-        /// Finds the first animal with the specified name.
-        /// </summary>
-        /// <param name="name">The name of the animal to find.</param>
-        /// <returns>The animal that was found.</returns>
-        public Animal FindAnimal(string name)
-        {
-            // Define and initialize a result variable.
-            Animal result = null;
-
-            // Loop through all animals in the zoo.
-            foreach (Animal a in this.animals)
-            {
-                // If the desired animal was found...
-                if (a.Name == name)
-                {
-                    // Set the variable to point to the current aniimal.
-                    result = a;
-
-                    // Break out of the loop (no need to continue looking).
-                    break;
-                }
-            }
-
-            // Return result.
-            return result;
-        }
 
         /// <summary>
         /// Finds the cage based on animal type.
@@ -483,24 +447,9 @@ namespace Zoos
         /// </summary>
         /// <param name="name">The name of the guest to find.</param>
         /// <returns>The first matching guest.</returns>
-        public Guest FindGuest(string name)
+        public Guest FindGuest(Predicate<Guest> match)
         {
-            Guest guest = null;
-
-            // Loop through the zoo's list of guests.
-            foreach (Guest g in this.guests)
-            {
-                // If the name matches...
-                if (g.Name == name)
-                {
-                    // Get the matching guest.
-                    guest = g;
-
-                    break;
-                }
-            }
-
-            return guest;
+            return this.guests.Find(match);
         }
 
         /// <summary>
@@ -705,16 +654,16 @@ namespace Zoos
         /// </summary>
         public void OnDeserialized()
         {
-            foreach (Guest g in this.Guests)
+            this.guests.ForEach(g => this.OnAddGuest?.Invoke(g));
+
+            this.animals.ForEach(a =>
             {
-                if (this.OnAddGuest != null)
-                {
-                    this.OnAddGuest(g);
-                }
-            }
-            //placeholder for animals
+                this.OnAddAnimal?.Invoke(a);
+                a.OnPregnant = animal => this.b168.PregnantAnimals.Enqueue(animal);
+            });
+            {
+
             if (this.OnBirthingRoomTemperatureChange != null)
-            {
                 this.OnBirthingRoomTemperatureChange(this.b168.Temperature, this.b168.Temperature);
             }
         }
