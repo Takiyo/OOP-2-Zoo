@@ -521,20 +521,40 @@ namespace ZooConsole
         /// <param name="query">The query to be used.</param>
         public static string QueryHelper(Zoo zoo, string query)
         {
-            List<Animal> animals;
-            string q;
-
             switch (query)
             {
                 case "totalanimalweight":
-                    return $"Total animal weight {zoo.Animals.ToList().Sum(a => a.Weight)}";        
+                    return $"Total animal weight {zoo.Animals.ToList().Sum(a => a.Weight)}";   
+                    
                 case "averageanimalweight":
                     return $"Average animal weight: {zoo.Animals.ToList().Average(a => a.Weight)}";
+
                 case "animalcount":
                     return $"Total animal count: {zoo.Animals.ToList().Count()}";
+
                 case "firstheavyanimal":
-                    zoo.Animals.ToList().ForEach(a => a.Weight);
-                    break;
+                    List<Animal> overTwoHundred = new List<Animal>();
+                    string firstOver = "";
+
+                    overTwoHundred.Add(zoo.Animals.ToList().FirstOrDefault(a => a.Weight > 200));
+                    overTwoHundred.ForEach(a => firstOver = a.ToString());
+                    return $"First heavy animal found: {firstOver}";
+
+                case "firstyounggest":
+                    List<Guest> youngGuests = new List<Guest>();
+                    string firstYoung = "";
+
+                    youngGuests.Add(zoo.Guests.ToList().FirstOrDefault(g => g.Age <= 10));
+                    youngGuests.ForEach(g => firstYoung = g.ToString());
+                    return $"First young guest found: {firstYoung}";
+
+                case "firstfemaledingo":
+                    List<Animal> femaleDingoes = new List<Animal>();
+                    string firstFemaleDingo = "";
+
+                    femaleDingoes.Add(zoo.Animals.ToList().FirstOrDefault(a => a.Gender == Gender.Female &&  a.GetType() == typeof(Dingo)));
+                    femaleDingoes.ForEach(a => firstFemaleDingo = a.ToString());
+                    return $"First female dingo found: {firstFemaleDingo}";
             }
 
             return "";

@@ -237,7 +237,7 @@ namespace ZooConsole
                             break;
 
                         case "query":
-                            ConsoleHelper.QueryHelper(zoo, commandWords[1]);
+                            Console.WriteLine(ConsoleHelper.QueryHelper(zoo, commandWords[1]));
 
                             break;
                         case "save":
