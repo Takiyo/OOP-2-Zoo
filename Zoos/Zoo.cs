@@ -420,17 +420,6 @@ namespace Zoos
         }
 
         /// <summary>
-        /// Find an animal based on type.
-        /// </summary>
-        /// <param name="type">The type of the animal to find.</param>
-        /// <returns>The first matching animal.</returns>
-        public Animal FindAnimal(Predicate<Animal> match)
-        {
-            return this.animals.Find(match);
-        }
-
-
-        /// <summary>
         /// Finds the cage based on animal type.
         /// </summary>
         /// <param name="animalType">The type of cage to be searched.</param>
@@ -440,16 +429,6 @@ namespace Zoos
             Cage result = null;
             this.cages.TryGetValue(animalType, out result);
             return result;
-        }
-
-        /// <summary>
-        /// Finds a guest based on name.
-        /// </summary>
-        /// <param name="name">The name of the guest to find.</param>
-        /// <returns>The first matching guest.</returns>
-        public Guest FindGuest(Predicate<Guest> match)
-        {
-            return this.guests.Find(match);
         }
 
         /// <summary>

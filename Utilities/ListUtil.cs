@@ -18,7 +18,7 @@ namespace Utilities
         /// <param name="list">List to be flattened.</param>
         /// <param name="separator">Separates list.</param>
         /// <returns>The flattened list.</returns>
-        public static string Flatten(IEnumerable<string> list, string separator)
+        public static string Flatten(this IEnumerable<string> list, string separator)
         {
             string result = null;
 

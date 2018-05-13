@@ -65,8 +65,6 @@ namespace ZooScenario
                 if (window.DialogResult == true)
                 {
                     this.comoZoo.AddAnimal(animal);
-
-                    this.PopulateAnimalListBox();
                 }
             }
             catch (NullReferenceException)
@@ -215,8 +213,6 @@ namespace ZooScenario
                 if (guest != null && animal != null)
                 {
                     guest.FeedAnimal(animal);
-
-                    this.PopulateAnimalListBox();
                 }
                 else
                 {
@@ -254,16 +250,6 @@ namespace ZooScenario
         }
 
         /// <summary>
-        /// Populates the window's animal list.
-        /// </summary>
-        private void PopulateAnimalListBox()
-        {
-            this.animalListBox.ItemsSource = null;
-
-            this.animalListBox.ItemsSource = this.comoZoo.Animals;
-        }
-
-        /// <summary>
         /// Removes the selected animal from the zoo.
         /// </summary>
         /// <param name="sender">The object that initiated the event.</param>
@@ -290,7 +276,6 @@ namespace ZooScenario
                 {
                     // Remove the selected animal.
                     this.comoZoo.RemoveAnimal(animal);
-                    this.PopulateAnimalListBox();
                 }
             }
             else
@@ -347,7 +332,6 @@ namespace ZooScenario
                         this.comoZoo.AddAnimal(animal);
                         this.comoZoo.RemoveAnimal(animal);
                     }
-                    this.PopulateAnimalListBox();
                 }
             }
         }
@@ -449,7 +433,6 @@ namespace ZooScenario
             try
             {
                 this.comoZoo.BirthAnimal();
-                this.PopulateAnimalListBox();
             }
             catch (NullReferenceException ex)
             {
@@ -523,8 +506,6 @@ namespace ZooScenario
                 this.AttachDelegates();
 
                 SetWindowTitle(fileName);
-
-                this.PopulateAnimalListBox();
             }
             catch (Exception)
             {
@@ -578,8 +559,6 @@ namespace ZooScenario
             {
                 this.animalTypeComboBox.ItemsSource = Enum.GetValues(typeof(AnimalType));
                 this.changeMoveBehaviorComboBox.ItemsSource = Enum.GetValues(typeof(MoveBehaviorType));
-
-                this.PopulateAnimalListBox();
             }
             catch (NullReferenceException)
             {

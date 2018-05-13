@@ -45,6 +45,7 @@
     <Compile Include="SortHelper.cs" />
     <Compile Include="SortResult.cs" />
     <Compile Include="Zoo.cs" />
+    <Compile Include="ZooExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Accounts\Accounts.csproj">

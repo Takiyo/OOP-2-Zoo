@@ -252,7 +252,7 @@ namespace ZooConsole
 
             if (arguments != null)
             {
-                Console.WriteLine($"Usage: {command} {ListUtil.Flatten(arguments.Keys, " ")}");
+                Console.WriteLine($"Usage: {command} {arguments.Keys.Flatten(" ")}");
                 Console.WriteLine("Parameters:");
 
                 arguments.ToList().ForEach(kvp => Console.WriteLine(kvp.Key + ": " + kvp.Value));
