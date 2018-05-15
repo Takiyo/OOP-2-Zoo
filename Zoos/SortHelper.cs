@@ -20,7 +20,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">The list of animals to be sorted through.</param>
         /// <returns>The sorted list.</returns>
-        public static SortResult BubbleSort(IList list, Func<object, object, int> comparer)
+        public static SortResult BubbleSort(this IList list, Func<object, object, int> comparer)
         {
             // initialize a swap counter variable and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -68,7 +68,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">The list to be sorted through.</param>
         /// <returns>The resulting sort.</returns>
-        public static SortResult SelectionSort(IList list, Func<object, object, int> comparer)
+        public static SortResult SelectionSort(this IList list, Func<object, object, int> comparer)
         {
             // initialize a swap counter variable, smallest weight found, and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -128,7 +128,7 @@ namespace Zoos
         /// </summary>
         /// <param name="animals">List to be sorted.</param>
         /// <returns>The resulting sort.</returns>
-        public static SortResult InsertionSort(IList list, Func<object, object, int> comparer)
+        public static SortResult InsertionSort(this IList list, Func<object, object, int> comparer)
         {
             // initialize a swap counter variable and stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -190,7 +190,7 @@ namespace Zoos
         /// <param name="rightIndex">The highest index of the list.</param>
         /// <param name="sortResult">The resulting sort.</param>
         /// <returns></returns>
-        public static SortResult QuickSort(IList list, int leftIndex, int rightIndex, SortResult sortResult, Func<object, object, int> comparer)
+        public static SortResult QuickSort(this IList list, int leftIndex, int rightIndex, SortResult sortResult, Func<object, object, int> comparer)
         {
             // define variables to keep track of the left and right points in the list
             // initialize them to the passed-in indexes
