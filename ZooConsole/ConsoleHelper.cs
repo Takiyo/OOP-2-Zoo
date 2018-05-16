@@ -532,29 +532,40 @@ namespace ZooConsole
                 case "animalcount":
                     return $"Total animal count: {zoo.Animals.ToList().Count()}";
 
-                case "firstheavyanimal":
-                    List<Animal> overTwoHundred = new List<Animal>();
-                    string firstOver = "";
+                case "getheavyanimals":
+                    // placeholder
+                    var animals = zoo.GetHeavyAnimals();
+                    try
+                    {
+                        animals.ToList().ForEach(a => Console.WriteLine(
+                            String.Format("GETHEAVYANIMALS: {{ Type = {0}, Name = {1}, Age = {2}, Weight = {3} }}",
+                            (a as Animal).GetType().ToString(), (a as Animal).Name, (a as Animal).Age, (a as Animal).Weight)));
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
 
-                    overTwoHundred.Add(zoo.Animals.ToList().FirstOrDefault(a => a.Weight > 200));
-                    overTwoHundred.ForEach(a => firstOver = a.ToString());
-                    return $"First heavy animal found: {firstOver}";
+                    break;
+                case "getyounggests":
+                    return zoo.GetYoungGuests().ToString();
 
-                case "firstyounggest":
-                    List<Guest> youngGuests = new List<Guest>();
-                    string firstYoung = "";
+                case "getfemaledingoes":
+                    return zoo.GetFemaleDingoes().ToString();
+                case "getguestsbyage":
+                    return zoo.GetGuestsByAge().ToString();
 
-                    youngGuests.Add(zoo.Guests.ToList().FirstOrDefault(g => g.Age <= 10));
-                    youngGuests.ForEach(g => firstYoung = g.ToString());
-                    return $"First young guest found: {firstYoung}";
+                case "getflyinganimals":
+                    return zoo.GetFlyingAnimals().ToString();
 
-                case "firstfemaledingo":
-                    List<Animal> femaleDingoes = new List<Animal>();
-                    string firstFemaleDingo = "";
+                case "getadoptedanimals":
+                    return zoo.GetAdoptedAnimals().ToString();
 
-                    femaleDingoes.Add(zoo.Animals.ToList().FirstOrDefault(a => a.Gender == Gender.Female &&  a.GetType() == typeof(Dingo)));
-                    femaleDingoes.ForEach(a => firstFemaleDingo = a.ToString());
-                    return $"First female dingo found: {firstFemaleDingo}";
+                case "totalbalancebycolor":
+                    return zoo.GetTotalBalanceByWalletColor().ToString();
+
+                case "averageweightbyanimaltype":
+                    return zoo.GetAverageWeightByAnimalType().ToString();
             }
 
             return "";
